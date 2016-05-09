@@ -1,2 +1,3 @@
-# qtdataproducer
-Project for DCA0201
+# QTDataProducer
+
+Final Project for DCA0201
