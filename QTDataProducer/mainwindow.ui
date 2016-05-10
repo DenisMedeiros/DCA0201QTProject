@@ -6,21 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
-    <height>427</height>
+    <width>694</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>QTDataProducer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
-      <width>322</width>
-      <height>293</height>
+      <y>0</y>
+      <width>261</width>
+      <height>261</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -35,14 +35,14 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>IP Address</string>
+          <string>Endereço IP + Porta</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEditIP">
+        <widget class="QLineEdit" name="lineEditIPPorta">
          <property name="text">
-          <string>127.0.0.1</string>
+          <string>127.0.0.1:1234</string>
          </property>
         </widget>
        </item>
@@ -157,22 +157,47 @@
      </item>
     </layout>
    </widget>
-   <zorder>lineEditIP</zorder>
-   <zorder>label</zorder>
-   <zorder>label</zorder>
-   <zorder>frame</zorder>
-   <zorder>lineEditFaixaInicio</zorder>
-   <zorder>lineEditFaixaFim</zorder>
-   <zorder>label_2</zorder>
-   <zorder>label_3</zorder>
-   <zorder>horizontalSlider</zorder>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>0</y>
+      <width>281</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Registros Inseridos no Servidor</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListView" name="listViewRegistros"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+    <zorder>label_5</zorder>
+    <zorder></zorder>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>587</width>
+     <width>694</width>
      <height>25</height>
     </rect>
    </property>
@@ -197,12 +222,12 @@
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>270</y>
+     <x>140</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
-     <x>315</x>
-     <y>239</y>
+     <x>258</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -210,11 +235,11 @@
    <sender>pushButtonConectar</sender>
    <signal>clicked(bool)</signal>
    <receiver>MainWindow</receiver>
-   <slot>alteraTextoBotaoConectar(bool)</slot>
+   <slot>conectarServidor(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>231</x>
-     <y>326</y>
+     <x>241</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
      <x>430</x>
@@ -224,6 +249,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>alteraTextoBotaoConectar(bool)</slot>
+  <slot>conectarServidor(bool)</slot>
  </slots>
 </ui>
