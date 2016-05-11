@@ -130,7 +130,7 @@
             <number>1</number>
            </property>
            <property name="maximum">
-            <number>100</number>
+            <number>60</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -192,7 +192,6 @@
         </layout>
        </item>
       </layout>
-      <zorder>label_5</zorder>
       <zorder></zorder>
      </widget>
     </item>

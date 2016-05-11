@@ -51,7 +51,7 @@ void Conexao::enviarDados(int _faixaInicio, int _faixaFim, int _intervalo)
     intervalo = _intervalo;
 
     /* intervalo vem em segundos, logo converta para milisegundos. */
-    timer->start(intervalo * 1000);
+    timer->start(intervalo * 100);
 }
 
 void Conexao::pararEnvio()
@@ -82,4 +82,10 @@ void Conexao::enviar(void)
 
     emit dadoEnviado(dadoLog);
 
+}
+
+void Conexao::alterarIntervalo(int intervalo)
+{
+    timer->stop();
+    timer->start(intervalo * 100);
 }
