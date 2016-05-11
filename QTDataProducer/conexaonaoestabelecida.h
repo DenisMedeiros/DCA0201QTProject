@@ -2,18 +2,20 @@
 #define CONEXAONAOESTABELECIDA_H
 
 #include <iostream>
+#include <QString>
 
 class ConexaoNaoEstabelecida
 {
 
 private:
-  const char* mensagem;
+  QString mensagem;
 
 public:
-  ConexaoNaoEstabelecida(const char* msg = "Não foi possível conectar ao servidor") : mensagem(msg) {
+  ConexaoNaoEstabelecida(QString _mensagem = "Erro na conexão.") {
+      mensagem = _mensagem;
   }
 
-  const char* getMensagem() const {
+  QString getMensagem() const {
       return mensagem;
   }
 

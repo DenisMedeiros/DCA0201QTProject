@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QDoubleValidator>
+#include <QIntValidator>
 #include <QStringListModel>
 #include "conexao.h"
 
@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     QRegExpValidator *ipPortaValidator;
-    QDoubleValidator *faixaValidator;
+    QIntValidator *faixaValidator;
     QStringListModel *model;
     Conexao *conexao;
 
@@ -27,6 +27,7 @@ public:
 
 public slots:
     void conectarServidor(bool);
+    void inserirDadoLista(QString);
 
 };
 
