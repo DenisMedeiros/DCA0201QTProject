@@ -13,6 +13,10 @@
 #include <QStringListModel>
 #include "conexao.h"
 
+/**
+ * @brief Este é o namespace padrão do próprio Qt para a janela principal.
+ *
+ */
 namespace Ui {
     class MainWindow;
 }
@@ -62,6 +66,7 @@ public slots:
     /**
      * @brief Este slot é invocado quando o botão de conectar é ativado e
      * ele tenta estabelecer a conexão com o servidor remoto.
+     *
      * @param ativado Status sobre se o botão de conectar está ativo
      * ou inativo.
      */
@@ -70,6 +75,7 @@ public slots:
     /**
      * @brief Este slot é invocado quando um dado foi enviado com sucesso para
      * o servidor e escreve na lista de logs o dado que fora enviado.
+     *
      * @param dado O dado que foi enviado com sucesso para o servidor.
      */
     void inserirDadoLista(QString dado);
