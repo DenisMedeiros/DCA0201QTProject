@@ -52,7 +52,7 @@ Conexao::~Conexao(void)
 }
 
 /**
- * @brief Este método abre a conexão com o servidor removo.
+ * @brief Este método abre a conexão com o servidor remoto.
  *
  * Ele abre a conexao com o servidor remoto, que é identificado
  * pelo ip e pela porta na qual os serviço estará
@@ -120,7 +120,7 @@ void Conexao::enviarDados(int _faixaInicio, int _faixaFim, int _intervalo)
     intervalo = _intervalo;
 
     /* intervalo vem em segundos, logo converta para milisegundos. */
-    timer->start(intervalo * 100);
+    timer->start(intervalo * 1000);
 }
 
 /**
@@ -153,19 +153,26 @@ void Conexao::enviar(void)
     QString dadoLog, dadoEnvio;
     QDateTime datetime;
 
-    /* Preparando a faixa de valores. */
-
+    /* Preparando o dado a ser enviado. */
     datetime = QDateTime::currentDateTime();
+	
+	/* Este dado está formatado para ser enviado via signal para a MainWindow. */
     dadoLog = datetime.toString(Qt::ISODate)
             + " " + QString::number(numero_aleatorio(faixaInicio, faixaFim));
+			
+	/* Este comando está formatado para ser enviado para o servidor (ele contem o dado acima). */
     dadoEnvio = "set "+ dadoLog + "\r\n";
 
     if (socket->isOpen())
     {
         socket->write(dadoEnvio.toStdString().c_str());
-        socket->waitForBytesWritten(3000);
+		if(!socket->waitForBytesWritten(3000))
+		{
+			qDebug() << "Erro no envio do dado." << endl;
+		}
     }
-
+	
+	/* Emite o sinal para a MainWindow mostrar o dado enviado na lista de logs. */
     emit dadoEnviado(dadoLog);
 
 }
@@ -180,7 +187,7 @@ void Conexao::enviar(void)
 void Conexao::alterarIntervalo(int intervalo)
 {
     timer->stop();
-    timer->start(intervalo * 100);
+    timer->start(intervalo * 1000);
 }
 
 /**

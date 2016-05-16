@@ -19,7 +19,7 @@
  * @brief Esta é a classe responsável pela conexão entre o cliente
  * e o servidor remoto.
  *
- * Ela representa conexão entre o clientee o servidor remoto. Para isso,
+ * Ela representa conexão entre o cliente o servidor remoto. Para isso,
  * ela utiliza o IP e portas fornecidos pelo usuário para realizar a conexão.
  *
  */
