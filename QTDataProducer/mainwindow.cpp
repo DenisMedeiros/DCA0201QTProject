@@ -11,7 +11,6 @@
 #include <QRegExp>
 #include <QStringList>
 #include <QDebug>
-
 #include <cstdlib>
 
 /**
@@ -94,7 +93,7 @@ MainWindow::~MainWindow()
  */
 void MainWindow::conectarServidor(bool ativado)
 {
-    QString ip;
+    QString ip, faixaInicioStr, faixaFimStr;
     QStringList ipPorta;
     unsigned int porta;
     int faixaInicio, faixaFim, intervalo;
@@ -105,8 +104,8 @@ void MainWindow::conectarServidor(bool ativado)
         /* A string está no formato IP:porta e são separados abaixo. */
         ipPorta = ui->lineEditIPPorta->text().split(":");
 
-
         /* Valida a porta e IP. */
+
         if(ipPorta.size() != 2) {
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Porta ou IP inválidos.");
@@ -116,6 +115,26 @@ void MainWindow::conectarServidor(bool ativado)
 
         ip = ipPorta.at(0);
         porta = ipPorta.at(1).toUInt();
+
+        intervalo = ui->horizontalSliderIntervalo->value();
+
+        /* Valida as faixas de valores. */
+
+        faixaInicioStr = ui->lineEditFaixaInicio->text();
+        faixaFimStr = ui->lineEditFaixaFim->text();
+
+        if(faixaInicioStr.isEmpty() || faixaFimStr.isEmpty())
+        {
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage("Faixa de início ou fim em branco. Digite um número válido.");
+            ui->pushButtonConectar->setChecked(false);
+            return;
+        }
+
+        /* Inicie imediatamente o envio de dados com base nos parâmetros definidos. */
+
+        faixaInicio = faixaInicioStr.toInt();
+        faixaFim = faixaFimStr.toInt();
 
         /* Tente criar a conexão. */
         try
@@ -128,12 +147,6 @@ void MainWindow::conectarServidor(bool ativado)
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Conectado com sucesso ao servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
-
-            /* Inicie imediatamente o envio de dados com base nos parâmetros definidos. */
-
-            faixaInicio = ui->lineEditFaixaInicio->text().toInt();
-            faixaFim = ui->lineEditFaixaFim->text().toInt();
-            intervalo = ui->horizontalSliderIntervalo->value();
 
             conexao->enviarDados(faixaInicio, faixaFim, intervalo);
         }
