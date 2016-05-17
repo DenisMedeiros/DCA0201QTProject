@@ -13,17 +13,10 @@
 #include <QDebug>
 #include <cstdlib>
 
-/**
- * @brief Este é o construtor padrão desta classe.
- * @param parent É o QWidget onde a MainWindow será
- * desenhada.
- */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
-
 
     QString ipRange, portRange;
     QRegExp ipPortaRegex;
@@ -70,13 +63,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(conexao, SIGNAL(dadoEnviado(QString)), this, SLOT(inserirDadoLista(QString)));
 
     /* Faça a conexão do sinal e slot de quando o intervalo é alterado. */
-    connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), conexao, SLOT(alterarIntervalo(int)));
+    connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), this, SLOT(alterarIntervalo(int)));
 
 }
 
-/**
- * @brief Este é o destrutor padrão desta classe.
- */
 MainWindow::~MainWindow()
 {
     delete ipPortaValidator;
@@ -85,12 +75,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/**
- * @brief Este slot é invocado quando o botão de conectar é ativado e
- * ele tenta estabelecer a conexão com o servidor remoto.
- * @param ativado Status sobre se o botão de conectar está ativo
- * ou inativo.
- */
 void MainWindow::conectarServidor(bool ativado)
 {
     QString ip, faixaInicioStr, faixaFimStr;
@@ -148,7 +132,11 @@ void MainWindow::conectarServidor(bool ativado)
             ui->statusBar->showMessage("Conectado com sucesso ao servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
 
-            conexao->enviarDados(faixaInicio, faixaFim, intervalo);
+            conexao->setFaixaInicio(faixaInicio);
+            conexao->setFaixaFim(faixaFim);
+            conexao->setIntervalo(intervalo);
+
+            conexao->iniciarEnvio();
         }
 
         /* Caso tenha ocorrido algum erro na tentativa de conexão,
@@ -172,14 +160,21 @@ void MainWindow::conectarServidor(bool ativado)
     }
 }
 
-/**
- * @brief Este slot é invocado quando um dado foi enviado com sucesso para
- * o servidor e escreve na lista de logs o dado que fora enviado.
- * @param dado O dado que foi enviado com sucesso para o servidor.
- */
+
 void MainWindow::inserirDadoLista(QString dado)
 {
     /* Insere um dado numa nova linha no início da lista. */
     model->insertRows(0, 1);
     model->setData(model->index(0), dado);
+}
+
+
+void MainWindow::alterarIntervalo(int intervalo)
+{
+    if(conexao->isAtiva())
+    {
+        conexao->pararEnvio();
+        conexao->setIntervalo(intervalo);
+        conexao->iniciarEnvio();
+    }
 }

@@ -74,6 +74,27 @@ public:
     ~Conexao(void);
 
     /**
+     * @brief Este método altera a faixa inicial dos dados.
+     *
+     * @param _faixaInicio Menor valor do intervalo que o dado pode assumir.
+     */
+    void setFaixaInicio(int _faixaInicio);
+
+    /**
+     * @brief Este método altera a faixa final dos dados.
+     *
+     * @param _faixaFim Menor valor do intervalo que o dado pode assumir.
+     */
+    void setFaixaFim(int _faixaFim);
+
+    /**
+     * @brief Este método altera o intervalo de envio dos dados.
+     *
+     * @param _intervalo Intervalo de tempo em que os dados serão enviados.
+     */
+    void setIntervalo(int _intervalo);
+
+    /**
      * @brief Este método abre a conexão com o servidor removo.
      *
      * Ele abre a conexao com o servidor remoto, que é identificado
@@ -86,7 +107,6 @@ public:
      * @exception ConexaoNaoEstabelecida Caso haja um erro na criação do socket de comunicação.
      */
     void abrir(QString &ip, unsigned int porta);
-
 
     /**
      * @brief Este método fecha a conexão com o servidor removo.
@@ -111,16 +131,11 @@ public:
     /**
      * @brief Este método inicia o processo de envio de dados.
      *
-     * Ele altera todos os parâmetros acerca da geração dos valores
-     * e inicia o timer responsável por ativar o envio de dados para o servidor
-     * remoto no período determinado pelo usuário.
-     *
-     * @param _faixaInicio Menor valor do intervalo que o dado pode assumir.
-     * @param _faixaFim Maior valor do intervalo que o dado pode assumir.
-     * @param _intervalo Intervalo de tempo em que os dados serão ferados e enviados.
+     * Ele inicia o timer responsável por ativar o envio de dados para o servidor
+     * remoto, no período identificado pelo atributo 'intervalo'.
      *
      */
-    void enviarDados(int _faixaInicio, int _faixaFim, int _intervalo);
+    void iniciarEnvio(void);
 
 
     /**
@@ -145,15 +160,6 @@ public slots:
      *
      */
     void enviar(void);
-
-    /**
-     * @brief Este slot é responsável por alterar o intervalo de tempo da geração dos dados.
-     *
-     * Ele é ativado quando o HorizontalSlider do intervalo tem seu valor mudado e, com isso,
-     * ele para e reinicia o timer o novo valor estabelecido.
-     *
-     */
-    void alterarIntervalo(int intervalo);
 
 signals:
     /**

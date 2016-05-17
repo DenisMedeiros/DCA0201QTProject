@@ -80,6 +80,15 @@ public slots:
      */
     void inserirDadoLista(QString dado);
 
+    /**
+     * @brief Este slot é responsável por alterar o intervalo de tempo da geração dos dados.
+     *
+     * Ele é ativado quando o HorizontalSlider do intervalo tem seu valor mudado e, com isso,
+     * ele para e reinicia o timer o novo valor estabelecido.
+     *
+     */
+    void alterarIntervalo(int intervalo);
+
 
 };
 
