@@ -129,7 +129,7 @@ void MainWindow::conectarServidor(bool ativado)
              * mude os elementos visuais da tela. */
             ui->pushButtonConectar->setText("Desonectar");
             ui->statusBar->clearMessage();
-            ui->statusBar->showMessage("Conectado com sucesso ao servidor "
+            ui->statusBar->showMessage("Conectado e enviando dados para servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
 
             conexao->setFaixaInicio(faixaInicio);
