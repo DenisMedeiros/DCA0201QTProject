@@ -105,6 +105,15 @@ void MainWindow::conectarServidor(bool ativado)
         /* A string está no formato IP:porta e são separados abaixo. */
         ipPorta = ui->lineEditIPPorta->text().split(":");
 
+
+        /* Valida a porta e IP. */
+        if(ipPorta.size() != 2) {
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage("Porta ou IP inválidos.");
+            ui->pushButtonConectar->setChecked(false);
+            return;
+        }
+
         ip = ipPorta.at(0);
         porta = ipPorta.at(1).toUInt();
 
