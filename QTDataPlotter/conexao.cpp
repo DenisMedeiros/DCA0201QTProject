@@ -20,7 +20,7 @@ void Conexao::abrir(QString ip, unsigned int porta)
     socket->connectToHost(ip, porta);
 
     /* Aguarda 3 segundos pela conexão. Caso não conecte, gere a exceção. */
-    if(!socket->waitForConnected(30000))
+    if(!socket->waitForConnected(3000))
     {
         throw ConexaoNaoEstabelecida("Erro na conexão: " + socket->errorString());
     }

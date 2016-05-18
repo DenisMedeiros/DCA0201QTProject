@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="50,50">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="40,60">
       <item>
        <widget class="QFrame" name="frame">
         <property name="frameShape">

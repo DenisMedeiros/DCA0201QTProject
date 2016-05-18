@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    conexao.cpp
+    conexao.cpp \
+    grafico.cpp
 
 HEADERS  += mainwindow.h \
     conexao.h \
-    conexaonaoestabelecida.h
+    conexaonaoestabelecida.h \
+    grafico.h
 
 FORMS    += mainwindow.ui

@@ -133,7 +133,7 @@ void MainWindow::conectarServidor(bool ativado)
 
             /* Se não ocorreu erro durante a abertura da conexão, então
              * mude os elementos visuais da tela. */
-            ui->pushButtonConectar->setText("Desonectar");
+            ui->pushButtonConectar->setText("Desconectar");
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Conectado e enviando dados para servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
@@ -189,8 +189,6 @@ void MainWindow::alterarIntervalo(int intervalo)
 {
     if(conexao->isAtiva())
     {
-        conexao->pararEnvio();
         conexao->setIntervalo(intervalo);
-        conexao->iniciarEnvio();
     }
 }

@@ -64,6 +64,12 @@ void Conexao::setFaixaFim(int _faixaFim)
 void Conexao::setIntervalo( int _intervalo)
 {
     intervalo = _intervalo;
+
+    /* Se o timer estiver ativo, altere o seu valor. */
+    if(timer->isActive())
+    {
+        timer->setInterval(intervalo * 1000);
+    }
 }
 
 void Conexao::abrir(QString &ip, unsigned int porta)
@@ -71,9 +77,9 @@ void Conexao::abrir(QString &ip, unsigned int porta)
     socket->connectToHost(ip, porta);
 
     /* Aguarda 3 segundos pela conexão. Caso não conecte, gere a exceção. */
-    if(!socket->waitForConnected(30000))
+    if(!socket->waitForConnected(3000))
     {
-        throw ConexaoNaoEstabelecida("Erro na conexão: " + socket->errorString());
+        throw ConexaoNaoEstabelecida("Erro na abertura da conexão: " + socket->errorString());
     }
 
 }
@@ -90,7 +96,8 @@ void Conexao::fechar()
 
 bool Conexao::isAtiva(void)
 {
-    return socket->isOpen();
+    /* Checa se o socket está aberto e conectado. */
+    return (socket->isOpen() && socket->state() == QTcpSocket::ConnectedState);
 }
 
 
@@ -124,12 +131,12 @@ void Conexao::enviar(void)
 	/* Este comando está formatado para ser enviado para o servidor (ele contem o dado acima). */
     dadoEnvio = "set "+ dadoLog + "\r\n";
 
-    if (socket->isOpen())
+    if (this->isAtiva())
     {
         socket->write(dadoEnvio.toStdString().c_str());
 		if(!socket->waitForBytesWritten(3000))
 		{
-			qDebug() << "Erro no envio do dado." << endl;
+            throw ConexaoNaoEstabelecida("Erro no envio do dado: " + socket->errorString());
 		}
     }
 	

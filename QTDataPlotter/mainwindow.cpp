@@ -46,6 +46,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectar(bool)));
     connect(ui->pushButtonPlot, SIGNAL(pressed()), this, SLOT(plot(void)));
 
+    /* Esconda a janela do plot. */
+    ui->grafico->hide();
+
 }
 
 MainWindow::~MainWindow()
@@ -89,10 +92,6 @@ void MainWindow::conectar(bool ativado)
                 /* Insere um dado numa nova linha no início da lista. */
                 model->insertRows(0, 1);
                 model->setData(model->index(0), cliente);
-                model->insertRows(0, 1);
-                model->setData(model->index(0), "192.168.1.1");
-                model->insertRows(0, 1);
-                model->setData(model->index(0), "192.168.2.2");
             }
 
             ui->statusBar->clearMessage();
@@ -121,6 +120,9 @@ void MainWindow::conectar(bool ativado)
 
         ui->pushButtonPlot->setEnabled(false);
         ui->pushButtonConectar->setText("Conectar");
+
+        /* Esconda o gráfico. */
+        ui->grafico->hide();
     }
 }
 
@@ -142,6 +144,7 @@ void MainWindow::plot(void)
 
     qDebug() << cliente;
 
-
+    /* Apague o gráfico. */
+    ui->grafico->show();
 
 }
