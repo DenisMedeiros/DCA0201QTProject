@@ -11,6 +11,7 @@
 #include <QMainWindow>
 #include <QIntValidator>
 #include <QStringListModel>
+#include <QRegExpValidator>
 #include "conexao.h"
 
 /**

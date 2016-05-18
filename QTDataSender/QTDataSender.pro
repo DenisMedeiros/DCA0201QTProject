@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-05-17T10:11:08
+# Project created by QtCreator 2016-05-09T13:53:50
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = QTDataPlotter
+TARGET = QTDataSender
 TEMPLATE = app
 
 

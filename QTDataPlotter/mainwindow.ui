@@ -11,7 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>QTDataPlotter</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -25,7 +31,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
@@ -36,7 +42,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEditIPPorta"/>
+            <widget class="QLineEdit" name="lineEditIPPorta">
+             <property name="text">
+              <string>127.0.0.1:1234</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -45,13 +55,30 @@
            <property name="text">
             <string>Conectar</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
-          <widget class="QListView" name="listViewClientes"/>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Lista de Clientes</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListView" name="listViewClientes"/>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonPlot">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Plot</string>
            </property>
@@ -97,4 +124,8 @@
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
+ <slots>
+  <slot>conectar()</slot>
+  <slot>plot()</slot>
+ </slots>
 </ui>

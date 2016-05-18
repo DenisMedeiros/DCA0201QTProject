@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QTDataProducer</string>
+   <string>QTDataSender</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -111,7 +111,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_6">
+              <widget class="QLabel" name="labelValorIntervalo">
                <property name="text">
                 <string>1</string>
                </property>
@@ -223,40 +223,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections>
-  <connection>
-   <sender>horizontalSliderIntervalo</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_6</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>139</x>
-     <y>316</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>297</x>
-     <y>272</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButtonConectar</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>conectarServidor(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>240</x>
-     <y>394</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>430</x>
-     <y>309</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>conectarServidor(bool)</slot>
  </slots>

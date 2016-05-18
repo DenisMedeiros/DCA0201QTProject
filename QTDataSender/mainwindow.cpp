@@ -52,18 +52,24 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Prepara a lista de dados enviados. */
     model = new QStringListModel(this);
 
-    /* Adicione o modelo na lista e torne-a não editável. */
+    /* Adiciona o modelo na lista e torne-a não editável. */
     ui->listViewRegistros->setModel(model);
-        ui->listViewRegistros->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->listViewRegistros->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    /* Crie a conexão. */
+    /* Cria a conexão. */
     conexao = new Conexao();
 
-    /* Faça a conexão do sinal e slot de quando um dado é enviado para o servidor. */
+    /* Faz a conexão do sinal e slot de quando um dado é enviado para o servidor. */
     connect(conexao, SIGNAL(dadoEnviado(QString)), this, SLOT(inserirDadoLista(QString)));
 
-    /* Faça a conexão do sinal e slot de quando o intervalo é alterado. */
+    /* Faz a conexão do sinal e slot de quando o intervalo é alterado. */
     connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), this, SLOT(alterarIntervalo(int)));
+
+    /* Faz a conexão do botão 'Conectar' com o slot que abre a conexão com o servidor. */
+    connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectarServidor(bool)));
+
+    /* Faz a conexão do slider de intervalo com o label que exibe o valor atual. */
+    connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), ui->labelValorIntervalo, SLOT(setNum(int)));
 
 }
 
@@ -83,7 +89,7 @@ void MainWindow::conectarServidor(bool ativado)
     int faixaInicio, faixaFim, intervalo;
 
 
-    if (ativado) /* Se o botão foi ativado. */
+    if (ativado) /* Se o usuário clicou em 'Conectar'. */
     {
         /* A string está no formato IP:porta e são separados abaixo. */
         ipPorta = ui->lineEditIPPorta->text().split(":");
@@ -132,6 +138,11 @@ void MainWindow::conectarServidor(bool ativado)
             ui->statusBar->showMessage("Conectado e enviando dados para servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
 
+
+            /* Desabilita a alteração dos valores do intervalo. */
+            ui->lineEditFaixaInicio->setEnabled(false);
+            ui->lineEditFaixaFim->setEnabled(false);
+
             conexao->setFaixaInicio(faixaInicio);
             conexao->setFaixaFim(faixaFim);
             conexao->setIntervalo(intervalo);
@@ -149,12 +160,17 @@ void MainWindow::conectarServidor(bool ativado)
         }
     }
 
-    else /* Se o botão foi desativado. */
+    else /* Se o usuário clicou em 'Desconectar'. */
     {
         /* Altera os elementos visuais, para o  envio de dados e fecha a coneções. */
         ui->pushButtonConectar->setText("Conectar");
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Desconectado.");
+
+        /* Habilita a alteração dos valores do intervalo. */
+        ui->lineEditFaixaInicio->setEnabled(true);
+        ui->lineEditFaixaFim->setEnabled(true);
+
         conexao->pararEnvio();
         conexao->fechar();
     }
