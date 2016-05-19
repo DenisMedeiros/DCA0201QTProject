@@ -1,5 +1,6 @@
 #include "conexao.h"
 #include "conexaonaoestabelecida.h"
+#include <QStringList>
 
 Conexao::Conexao(QObject *parent) : QObject(parent)
 {
@@ -40,7 +41,7 @@ QStringList Conexao::getClientes()
     QString linha;
     QStringList clientes;
 
-    if(socket->isOpen()){
+    if(isAtiva()){
 
       socket->write("list\r\n");
       socket->waitForBytesWritten(3000);
@@ -58,36 +59,53 @@ QStringList Conexao::getClientes()
     return clientes;
 }
 
-QStringList Conexao::getDados(QString clienteIP)
+QList<Dado> Conexao::getDados(QString cliente)
 {
 
-    QStringList dados;
-    /*
-    QString str;
-    QByteArray array;
-    QStringList list;
+    QList<Dado> dados;
+    QString linha, comando, datetimeStr, valorStr;
+    QStringList datetimeValor;
     QDateTime datetime;
+    int valor;
+    Dado dado;
 
-    if(socket->isOpen()){
-      socket->write("get 127.0.0.1\r\n");
-      socket->waitForBytesWritten(3000);
-      socket->waitForReadyRead(3000);
-      qDebug() << socket->bytesAvailable();
-      while(socket->bytesAvailable()){
-        str = socket->readLine().replace("\n","").replace("\r","");
-        list = str.split(" ");
-        if(list.size() == 2){
-          datetime.fromString(list.at(0),Qt::ISODate);
-          str = list.at(1);
-          qDebug() << datetime << ": " << str;
+    comando = "get " + cliente + "\r\n";
+
+    if(isAtiva())
+    {
+        socket->write(comando.toStdString().c_str());
+        socket->waitForBytesWritten(3000);
+        socket->waitForReadyRead(3000);
+
+        while(socket->bytesAvailable())
+        {
+            linha = socket->readLine().replace("\n","").replace("\r","");
+
+            /* O dado está n oformato '2016-05-19T08:21:58 8'. */
+            datetimeValor = linha.split(" ");
+
+            if(datetimeValor.size() == 2)
+            {
+                datetimeStr = datetimeValor.at(0);
+                valorStr = datetimeValor.at(1);
+
+                datetime = QDateTime::fromString(datetimeStr, Qt::ISODate);
+                valor = valorStr.toInt();
+
+                dado.datetime = datetime;
+                dado.valor = valor;
+
+                dados.append(dado);
+
+            }
         }
-      }
-    }*/
+    }
 
     return dados;
 }
 
-bool Conexao::isAtivada()
+bool Conexao::isAtiva()
 {
-    return socket->isOpen();
+    /* Checa se o socket está aberto e conectado. */
+    return (socket->isOpen() && socket->state() == QTcpSocket::ConnectedState);
 }

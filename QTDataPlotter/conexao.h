@@ -2,9 +2,15 @@
 #define CONEXAO_H
 
 #include <QObject>
-#include <QStringList>
 #include <QTcpSocket>
 #include <QString>
+#include <QList>
+#include <QDateTime>
+
+struct Dado {
+    QDateTime datetime;
+    int valor;
+};
 
 class Conexao : public QObject
 {
@@ -19,8 +25,8 @@ public:
     void abrir(QString ip, unsigned int porta);
     void fechar(void);
     QStringList getClientes(void);
-    QStringList getDados(QString clienteIP);
-    bool isAtivada(void);
+    QList<Dado> getDados(QString cliente);
+    bool isAtiva(void);
 
 signals:
 

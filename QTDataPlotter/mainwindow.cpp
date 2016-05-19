@@ -142,7 +142,9 @@ void MainWindow::plot(void)
 
     cliente = ui->listViewClientes->model()->data(indices.at(0)).toString();
 
-    qDebug() << cliente;
+    foreach(Dado dado, conexao->getDados(cliente)){
+           qDebug() << dado.datetime << ", " << dado.valor;
+    }
 
     /* Apague o gráfico. */
     ui->grafico->show();
