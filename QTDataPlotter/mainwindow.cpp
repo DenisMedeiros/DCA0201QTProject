@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QAbstractItemView>
 #include <QModelIndexList>
+#include <QList>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,8 +47,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectar(bool)));
     connect(ui->pushButtonPlot, SIGNAL(pressed()), this, SLOT(plot(void)));
 
-    /* Esconda a janela do plot. */
+    /* Esconde o gráfico e os labels. */
     ui->grafico->hide();
+    ui->labelXInicio->hide();
+    ui->labelXFim->hide();
+    ui->labelYInicio->hide();
+    ui->labelYFim->hide();
+
 
 }
 
@@ -123,6 +129,10 @@ void MainWindow::conectar(bool ativado)
 
         /* Esconda o gráfico. */
         ui->grafico->hide();
+        ui->labelXInicio->hide();
+        ui->labelXFim->hide();
+        ui->labelYInicio->hide();
+        ui->labelYFim->hide();
     }
 }
 
@@ -130,6 +140,8 @@ void MainWindow::plot(void)
 {
     QString cliente;
     QModelIndexList indices;
+    QList<Dado> dados, ultimos20dados;
+    QList<int> valores;
 
     indices = ui->listViewClientes->selectionModel()->selectedIndexes();
 
@@ -141,12 +153,43 @@ void MainWindow::plot(void)
     }
 
     cliente = ui->listViewClientes->model()->data(indices.at(0)).toString();
+    dados = conexao->getDados(cliente);
 
-    foreach(Dado dado, conexao->getDados(cliente)){
-           qDebug() << dado.datetime << ", " << dado.valor;
+    /* Obtem os ultimos 20 dados. */
+    if(dados.size() <= 20)
+    {
+        ultimos20dados = dados;
+    }
+    else
+    {
+        ultimos20dados = dados.mid(dados.size()-20);
     }
 
-    /* Apague o gráfico. */
+    /* Encontre o menor e maior valor do eixo Y. */
+
+    foreach(Dado dado, ultimos20dados)
+    {
+        valores.append(dado.valor);
+    }
+
+    qSort(valores);
+
+    /* Altere os labels para os valores iniciais e finais em cada eixo. */
+
+    ui->labelXInicio->setText(ultimos20dados.at(0).datetime.toString("dd.MM.yyyy hh:mm:ss"));
+    ui->labelXFim->setText(dados.at(ultimos20dados.size()- 1).datetime.toString("dd.MM.yyyy hh:mm:ss"));
+
+    ui->labelYInicio->setText(QString::number(valores.at(0)));
+    ui->labelYFim->setText(QString::number(valores.at(valores.size() - 1)));
+
+    ui->grafico->setDados(ultimos20dados);
+    ui->grafico->setMenorMaiorY(valores.at(0), valores.at(valores.size()-1));
+
+    /* Exibe o gráfico e os labels. */
     ui->grafico->show();
+    ui->labelXInicio->show();
+    ui->labelXFim->show();
+    ui->labelYInicio->show();
+    ui->labelYFim->show();
 
 }

@@ -103,7 +103,7 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QLabel" name="label_5">
+                <widget class="QLabel" name="labelYFim">
                  <property name="text">
                   <string>100</string>
                  </property>
@@ -123,7 +123,7 @@
                 </spacer>
                </item>
                <item>
-                <widget class="QLabel" name="label_6">
+                <widget class="QLabel" name="labelYInicio">
                  <property name="text">
                   <string>100</string>
                  </property>
@@ -145,14 +145,14 @@
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>40</width>
+                 <width>25</width>
                  <height>20</height>
                 </size>
                </property>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="labelXInicio">
                <property name="text">
                 <string>inicio</string>
                </property>
@@ -172,7 +172,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="labelXFim">
                <property name="text">
                 <string>fim</string>
                </property>

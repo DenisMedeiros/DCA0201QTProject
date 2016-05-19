@@ -6,6 +6,7 @@
 #include <QString>
 #include <QList>
 #include <QDateTime>
+#include <QTimer>
 
 struct Dado {
     QDateTime datetime;
@@ -19,6 +20,7 @@ private:
 
     /** @brief Socket utilizado na comunicação. */
     QTcpSocket *socket;
+    QTimer *timer;
 public:
     explicit Conexao(QObject *parent = 0);
     ~Conexao(void);

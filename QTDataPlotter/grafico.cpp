@@ -3,10 +3,23 @@
 #include <QBrush>
 #include <QPen>
 #include <QColor>
+#include <QDateTime>
+#include <cmath>
 
 Grafico::Grafico(QWidget *parent) : QWidget(parent)
 {
 
+}
+
+void Grafico::setDados(QList<Dado> &_dados)
+{
+    dados = _dados;
+}
+
+void Grafico::setMenorMaiorY(int _menorY, int _maiorY)
+{
+    menorY = _menorY;
+    maiorY = _maiorY;
 }
 
 void Grafico::paintEvent(QPaintEvent *e)
@@ -14,6 +27,8 @@ void Grafico::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     QBrush brush;
     QPen pen;
+    double proporcaoY;
+    int tamanho, xi, yi, xf, yf;
 
     painter.setRenderHint(QPainter::Antialiasing);
 
@@ -25,13 +40,23 @@ void Grafico::paintEvent(QPaintEvent *e)
     painter.setBrush(brush);
 
     /* Desenha o fundo da tela. */
-    painter.drawRect(0,0,width()-1, height()-1);
+    painter.drawRect(0, 0, width(), height());
 
-    /* Desenha a linha horizontal. */
-    painter.drawLine(0, height()/2, width(), height()/2);
+    /* Normaliza os dados entre 0 e 1. */
 
-    /* Desenha a linha vertical. */
-    painter.drawLine(width()/2, 0, width()/2, height());
+    proporcaoY = height()/((float) (maiorY - menorY));
 
+    xi = 0;
+    yi = qRound(height() - (dados[0].valor - menorY) * proporcaoY);
+    tamanho = dados.size();
+
+    for(int i = 1; i < tamanho; i++)
+    {
+        xf = qRound(i * width()/((float) tamanho-1));
+        yf = qRound(height() - (dados[i].valor - menorY) * proporcaoY);
+        painter.drawLine(xi, yi, xf, yf);
+        xi = xf;
+        yi = yf;
+    }
 }
 
