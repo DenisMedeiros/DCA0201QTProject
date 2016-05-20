@@ -5,6 +5,8 @@
 Conexao::Conexao(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
+
+    connect(socket, SIGNAL(disconnected()), this, SLOT(avisaFalhaConexao()));
 }
 
 Conexao::~Conexao()
@@ -41,7 +43,8 @@ QStringList Conexao::getClientes()
     QString linha;
     QStringList clientes;
 
-    if(isAtiva()){
+    if(isAtiva())
+    {
 
       socket->write("list\r\n");
       socket->waitForBytesWritten(3000);
@@ -53,7 +56,7 @@ QStringList Conexao::getClientes()
         clientes.append(linha);
       }
     } else {
-        throw ConexaoNaoEstabelecida();
+        throw ConexaoNaoEstabelecida("Erro na conexão: Servidor parou de responder.");
     }
 
     return clientes;
@@ -71,7 +74,7 @@ QList<Dado> Conexao::getDados(QString cliente)
 
     comando = "get " + cliente + "\r\n";
 
-    if(isAtiva())
+    if(isAtiva())     
     {
         socket->write(comando.toStdString().c_str());
         socket->waitForBytesWritten(3000);
@@ -100,6 +103,10 @@ QList<Dado> Conexao::getDados(QString cliente)
             }
         }
     }
+    else
+    {
+        throw ConexaoNaoEstabelecida("Erro na conexão: Servidor parou de responder.");
+    }
 
     return dados;
 }
@@ -108,4 +115,10 @@ bool Conexao::isAtiva()
 {
     /* Checa se o socket está aberto e conectado. */
     return (socket->isOpen() && socket->state() == QTcpSocket::ConnectedState);
+}
+
+
+void Conexao::avisaFalhaConexao()
+{
+    emit falhaConexao();
 }

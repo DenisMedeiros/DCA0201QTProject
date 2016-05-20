@@ -39,10 +39,11 @@ private:
     Conexao *conexao;
 
 public slots:
-    void conectar(bool);
+    void conectar(bool ativado);
     void plot(void);
     void atualizarDados(void);
     void atualizarListaClientes(void);
+    void falhaConexao(void);
 };
 
 #endif // MAINWINDOW_H

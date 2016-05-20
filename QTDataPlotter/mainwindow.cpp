@@ -55,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timerEnvio, SIGNAL(timeout()), this, SLOT(atualizarDados()));
     connect(timerListaClientes, SIGNAL(timeout()), this, SLOT(atualizarListaClientes()));
 
+
+    connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
+
     /* Esconde o gráfico e os labels. */
     ui->grafico->hide();
     ui->labelXInicio->hide();
@@ -119,7 +122,7 @@ void MainWindow::conectar(bool ativado)
             ui->pushButtonConectar->setText("Desconectar");
 
             atualizarListaClientes();
-            timerListaClientes->start(5000);
+            timerListaClientes->start(1000);
         }
         catch(ConexaoNaoEstabelecida &erro)
         {
@@ -163,14 +166,10 @@ void MainWindow::plot(void)
         indices = ui->listViewClientes->selectionModel()->selectedIndexes();
         cliente = ui->listViewClientes->model()->data(indices.at(0)).toString();
 
-        qDebug() << cliente;
-
         if(cliente != *clienteSelecionado)
         {
             *clienteSelecionado = cliente;
         }
-
-        qDebug() << *clienteSelecionado;
 
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Plotando os dados do cliente " + *clienteSelecionado + ".");
@@ -198,54 +197,57 @@ void MainWindow::atualizarDados(void)
 
     indices = ui->listViewClientes->selectionModel()->selectedIndexes();
 
-    dados = conexao->getDados(*clienteSelecionado);
-
-    /* Obtem os ultimos 20 dados. */
-    if(dados.size() <= 20)
+    if(conexao->isAtiva())
     {
-        ultimos20dados = dados;
+        dados = conexao->getDados(*clienteSelecionado);
+
+        /* Obtem os ultimos 20 dados. */
+        if(dados.size() <= 20)
+        {
+            ultimos20dados = dados;
+        }
+        else
+        {
+            ultimos20dados = dados.mid(dados.size()-20);
+        }
+
+        /* Encontre o menor e maior valor do eixo Y. */
+
+        foreach(Dado dado, ultimos20dados)
+        {
+            valores.append(dado.valor);
+        }
+
+        qSort(valores);
+
+        /* Altere os labels para os valores iniciais e finais em cada eixo. */
+
+        ui->labelXInicio->setText(ultimos20dados.at(0).datetime.toString("dd.MM.yyyy hh:mm:ss"));
+        ui->labelXFim->setText(ultimos20dados.at(ultimos20dados.size()- 1).datetime.toString("dd.MM.yyyy hh:mm:ss"));
+
+        ui->labelYInicio->setText(QString::number(valores.at(0)));
+        ui->labelYFim->setText(QString::number(valores.at(valores.size() - 1)));
+
+        ui->grafico->setDados(ultimos20dados);
+
+        menorY = valores.at(0);
+        maiorY = valores.at(valores.size()-1);
+
+
+        /* Se surgiu um valor maior ou menor que os do eixo Y atuais, atualize-os. */
+
+        if(maiorY > (ui->grafico->getMenorY()))
+        {
+            ui->grafico->setMenorY(menorY);
+        }
+
+        if(maiorY > ui->grafico->getMaiorY())
+        {
+            ui->grafico->setMaiorY(maiorY);
+        }
+
+        ui->grafico->repaint();
     }
-    else
-    {
-        ultimos20dados = dados.mid(dados.size()-20);
-    }
-
-    /* Encontre o menor e maior valor do eixo Y. */
-
-    foreach(Dado dado, ultimos20dados)
-    {
-        valores.append(dado.valor);
-    }
-
-    qSort(valores);
-
-    /* Altere os labels para os valores iniciais e finais em cada eixo. */
-
-    ui->labelXInicio->setText(ultimos20dados.at(0).datetime.toString("dd.MM.yyyy hh:mm:ss"));
-    ui->labelXFim->setText(ultimos20dados.at(ultimos20dados.size()- 1).datetime.toString("dd.MM.yyyy hh:mm:ss"));
-
-    ui->labelYInicio->setText(QString::number(valores.at(0)));
-    ui->labelYFim->setText(QString::number(valores.at(valores.size() - 1)));
-
-    ui->grafico->setDados(ultimos20dados);
-
-    menorY = valores.at(0);
-    maiorY = valores.at(valores.size()-1);
-
-
-    /* Se surgiu um valor maior ou menor que os do eixo Y atuais, atualize-os. */
-
-    if(maiorY > (ui->grafico->getMenorY()))
-    {
-        ui->grafico->setMenorY(menorY);
-    }
-
-    if(maiorY > ui->grafico->getMaiorY())
-    {
-        ui->grafico->setMaiorY(maiorY);
-    }
-
-    ui->grafico->repaint();
 
 }
 
@@ -257,19 +259,45 @@ void MainWindow::atualizarListaClientes()
     {
         clientesServidor = conexao->getClientes();
 
-        if(clientesServidor != *clientes)
+        /* Verifica se é o primeiro preenchimento ou se a lista atualizou. */
+        if((ui->listViewClientes->model()->rowCount() == 0) || (*clientes != clientesServidor))
         {
+            /* Limpa a lista e a preenche novamente. */
+            model->removeRows(0, model->rowCount());
+
+            foreach(QString cliente, *clientes){
+                /* Insere um dado numa nova linha no início da lista. */
+                model->insertRows(0, 1);
+                model->setData(model->index(0), cliente);
+            }
+
+            /* Atualiza a lista de clientes localmente. */
             *clientes = clientesServidor;
         }
-
-        ui->listViewClientes->selectionModel()->
-
-        model->removeRows(0, model->rowCount());
-
-        foreach(QString cliente, *clientes){
-            /* Insere um dado numa nova linha no início da lista. */
-            model->insertRows(0, 1);
-            model->setData(model->index(0), cliente);
-        }
     }
+}
+
+void MainWindow::falhaConexao()
+{
+    conexao->fechar();
+    timerEnvio->stop();
+    timerListaClientes->stop();
+
+    /* Remove a lista de clientes. */
+    model->removeRows(0, model->rowCount());
+
+    ui->pushButtonConectar->setEnabled(true);
+    ui->pushButtonConectar->setChecked(false);
+    ui->pushButtonConectar->setText("Conectar");
+
+    /* Esconda o gráfico. */
+    ui->grafico->hide();
+    ui->labelXInicio->hide();
+    ui->labelXFim->hide();
+    ui->labelYInicio->hide();
+    ui->labelYFim->hide();
+
+    ui->statusBar->clearMessage();
+    ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
+
 }

@@ -59,7 +59,7 @@ public:
     /**
      * @brief Este é o construtor padrão desta classe.
      *
-     * Ele instancia os objeto socket e timer; prepara a geração de números
+     * Ele instancia os objetos socket e timer; prepara a geração de números
      * aleatórios e conecta alguns sinais a seus respectivos slots.
      */
     Conexao(void);
@@ -121,7 +121,8 @@ public:
      * @brief Este método checa se a conexão está ativa.
      *
      * Ele checa se a conexão continua ativada verificando se o socket
-     * de comunicação continua aberto com o servidor remoto.
+     * de comunicação continua aberto com o servidor remoto, além de verificar
+     * o status atual da conexão.
      *
      * @return true Se o socket estiver aberto;
      *         false Se o socket estiver fechado.

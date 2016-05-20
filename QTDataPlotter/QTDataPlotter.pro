@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     conexao.cpp \
-    grafico.cpp
+    grafico.cpp \
+    conexaoplotter.cpp
 
 HEADERS  += mainwindow.h \
     conexao.h \
     conexaonaoestabelecida.h \
-    grafico.h
+    grafico.h \
+    conexaoplotter.h
 
 FORMS    += mainwindow.ui
