@@ -8,7 +8,7 @@
 
 Grafico::Grafico(QWidget *parent) : QWidget(parent)
 {
-
+    menorY = maiorY = 0;
 }
 
 void Grafico::setDados(QList<Dado> &_dados)
@@ -16,10 +16,24 @@ void Grafico::setDados(QList<Dado> &_dados)
     dados = _dados;
 }
 
-void Grafico::setMenorMaiorY(int _menorY, int _maiorY)
+void Grafico::setMenorY(int _menorY)
 {
     menorY = _menorY;
+}
+
+void Grafico::setMaiorY(int _maiorY)
+{
     maiorY = _maiorY;
+}
+
+int Grafico::getMenorY()
+{
+    return menorY;
+}
+
+int Grafico::getMaiorY()
+{
+    return maiorY;
 }
 
 void Grafico::paintEvent(QPaintEvent *e)

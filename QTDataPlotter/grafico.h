@@ -17,7 +17,10 @@ private:
 public:
     explicit Grafico(QWidget *parent = 0);
     void setDados(QList<Dado> &_dados);
-    void setMenorMaiorY(int _menorY, int _maiorY);
+    void setMenorY(int _menorY);
+    void setMaiorY(int _maiorY);
+    int getMenorY(void);
+    int getMaiorY(void);
 signals:
 
 protected:

@@ -45,8 +45,8 @@ private:
     int intervalo;
 
     /**
-     * @brief Este método auxiliar gera um número aleatório inteiro entre e inclusive
-     * min e max.
+     * @brief Este método auxiliar gera um número aleatório inteiro entre
+     * min e max (eles não são incluídos).
      *
      * @param min Valor mínimo para geração do número inteiro.
      * @param max Valor máximo para a geração do número inteiro.
@@ -173,6 +173,10 @@ signals:
      * @return QString O dado que foi enviado com sucesso.
      */
     QString dadoEnviado(QString dado);
+
+    QString falhaDuranteEnvio(void);
+
+
 };
 
 #endif // CONEXAO_H

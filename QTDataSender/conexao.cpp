@@ -136,8 +136,10 @@ void Conexao::enviar(void)
         socket->write(dadoEnvio.toStdString().c_str());
 		if(!socket->waitForBytesWritten(3000))
 		{
-            throw ConexaoNaoEstabelecida("Erro no envio do dado: " + socket->errorString());
+            qDebug() << "Falha durante o envio.";
 		}
+    } else {
+        qDebug() << "Falha durante o envio.";
     }
 	
 	/* Emite o sinal para a MainWindow mostrar o dado enviado na lista de logs. */

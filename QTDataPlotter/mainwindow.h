@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QRegExpValidator>
 #include <QStringListModel>
+#include <QTimer>
+
 #include "conexao.h"
 #include "conexaonaoestabelecida.h"
 
@@ -22,6 +24,11 @@ public:
 private:
     Ui::MainWindow *ui;
 
+    QTimer *timerEnvio;
+    QTimer *timerListaClientes;
+    QStringList *clientes;
+    QString *clienteSelecionado;
+
     /** Validator para validar a string no formato IP:porta. */
     QRegExpValidator *ipPortaValidator;
 
@@ -34,6 +41,8 @@ private:
 public slots:
     void conectar(bool);
     void plot(void);
+    void atualizarDados(void);
+    void atualizarListaClientes(void);
 };
 
 #endif // MAINWINDOW_H
