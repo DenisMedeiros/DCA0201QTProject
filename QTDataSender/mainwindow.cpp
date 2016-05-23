@@ -152,7 +152,7 @@ void MainWindow::conectarServidor(bool ativado)
 
         /* Caso tenha ocorrido algum erro na tentativa de conexão,
          * exiba o erro na barra de status. */
-        catch(ConexaoNaoEstabelecida &erro)
+        catch(ErroConexao &erro)
         {
             ui->pushButtonConectar->setChecked(false);
             ui->statusBar->clearMessage();

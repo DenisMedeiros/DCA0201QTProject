@@ -11,7 +11,7 @@
 
 int Conexao::numero_aleatorio(int min, int max)
 {
-    return ((float(rand()) / float(RAND_MAX)) * (max - min)) + min;
+    return ((float(rand()) / float(RAND_MAX)) * (max - min + 2)) + min - 1;
 }
 
 
@@ -79,7 +79,7 @@ void Conexao::abrir(QString &ip, unsigned int porta)
     /* Aguarda 3 segundos pela conexão. Caso não conecte, gere a exceção. */
     if(!socket->waitForConnected(3000))
     {
-        throw ConexaoNaoEstabelecida("Erro na abertura da conexão: " + socket->errorString());
+        throw ErroConexao("Erro na abertura da conexão: " + socket->errorString());
     }
 
 }

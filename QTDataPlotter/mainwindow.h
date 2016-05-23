@@ -7,7 +7,7 @@
 #include <QTimer>
 
 #include "conexaoplotter.h"
-#include "conexaonaoestabelecida.h"
+#include "erroconexao.h"
 
 namespace Ui {
     class MainWindow;

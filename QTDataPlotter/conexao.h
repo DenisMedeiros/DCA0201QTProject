@@ -14,7 +14,7 @@
 #include <QString>
 #include <QList>
 #include <QDateTime>
-#include "conexaonaoestabelecida.h"
+#include "erroconexao.h"
 
 /**
  * @brief Esta estrutura serve para agrupar os dados para facilitar a plotagem

@@ -20,8 +20,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     conexao.h \
-    conexaonaoestabelecida.h \
     grafico.h \
-    conexaoplotter.h
+    conexaoplotter.h \
+    erroconexao.h
 
 FORMS    += mainwindow.ui

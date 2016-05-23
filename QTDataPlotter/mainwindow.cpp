@@ -113,6 +113,9 @@ void MainWindow::conectar(bool ativado)
         {
             conexao->abrir(ip, porta);
 
+            /* Verifique se existe algum cliente conectado. */
+            atualizarListaClientes();
+
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Conectado com sucesso ao servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
@@ -123,8 +126,10 @@ void MainWindow::conectar(bool ativado)
             atualizarListaClientes();
             timerListaClientes->start(1000);
         }
-        catch(ConexaoNaoEstabelecida &erro)
+        catch(ErroConexao &erro)
         {
+            conexao->fechar();
+
             ui->pushButtonConectar->setChecked(false);
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage(QString(erro.getMensagem()));
@@ -233,17 +238,10 @@ void MainWindow::atualizarDados(void)
         maiorY = valores.at(valores.size()-1);
 
 
-        /* Se surgiu um valor maior ou menor que os do eixo Y atuais, atualize-os. */
+        /* Atualize os limites do eixo Y. */
 
-        if(maiorY > (ui->grafico->getMenorY()))
-        {
-            ui->grafico->setMenorY(menorY);
-        }
-
-        if(maiorY > ui->grafico->getMaiorY())
-        {
-            ui->grafico->setMaiorY(maiorY);
-        }
+        ui->grafico->setMenorY(menorY);
+        ui->grafico->setMaiorY(maiorY);
 
         ui->grafico->update();
     }

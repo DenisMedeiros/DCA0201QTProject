@@ -23,6 +23,8 @@
  */
 class ConexaoPlotter : public Conexao
 {
+private:
+
 public:
     /**
      * @brief Este é o construtor padrão desta classe.

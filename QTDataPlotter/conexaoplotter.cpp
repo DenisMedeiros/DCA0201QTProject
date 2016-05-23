@@ -2,12 +2,10 @@
 
 ConexaoPlotter::ConexaoPlotter(void) : Conexao()
 {
-
 }
 
 ConexaoPlotter::~ConexaoPlotter()
 {
-
 }
 
 QStringList ConexaoPlotter::getClientes(void)
@@ -19,7 +17,7 @@ QStringList ConexaoPlotter::getClientes(void)
 
     if(isAtiva())
     {
-        /* Envia o comando para o servidor.*/
+        /* Envia o comando para o servidor. */
 
         socket->write(comando.toStdString().c_str());
         socket->waitForBytesWritten(3000);
@@ -28,10 +26,16 @@ QStringList ConexaoPlotter::getClientes(void)
         while(socket->bytesAvailable())
         {
             linha = socket->readLine().replace("\n","").replace("\r","");
+
+            if (linha.isEmpty())
+            {
+                throw ErroConexao("Erro na conexão: Nenhum cliente conectou-se ao servidor ainda.");
+            }
+
             clientes.append(linha);
         }
     } else {
-        throw ConexaoNaoEstabelecida("Erro na conexão: Servidor parou de responder.");
+        throw ErroConexao("Erro na conexão: Servidor parou de responder.");
     }
 
     return clientes;
@@ -51,6 +55,7 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
 
     if(isAtiva())
     {
+
         socket->write(comando.toStdString().c_str());
         socket->waitForBytesWritten(3000);
         socket->waitForReadyRead(3000);
@@ -79,7 +84,7 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
     }
     else
     {
-        throw ConexaoNaoEstabelecida("Erro na conexão: Servidor parou de responder.");
+        throw ErroConexao("Erro na conexão: Servidor parou de responder.");
     }
 
     return dados;

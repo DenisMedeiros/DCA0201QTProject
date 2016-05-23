@@ -55,29 +55,56 @@ void Grafico::paintEvent(QPaintEvent *e)
 
     painter.setRenderHint(QPainter::Antialiasing);
 
-    /* Prepara o brush e o pen para desenhar as linhas na tela. */
-    pen.setColor(QColor(0, 0, 0));
-    painter.setPen(pen);
+    /* Prepara o brush. */
 
     brush.setColor(QColor(255, 255, 255));
     brush.setStyle(Qt::SolidPattern);
     painter.setBrush(brush);
 
     /* Desenha o fundo da tela. */
+    painter.setPen(QPen(Qt::black, 1));
     painter.drawRect(0, 0, width(), height());
 
     /* Calcula a proporção do tamanho de cada intervalo no eixo y. */
     proporcaoY = height()/((float) (maiorY - menorY));
 
-    /* Desenha as retas no gráfico. */
 
     xi = 0;
     yi = qRound(height() - (dados->at(0).valor - menorY) * proporcaoY);
+
+    /* Desenha o ponto. */
+
+    painter.setPen(QPen(Qt::blue, 5));
+    painter.drawPoint(xi, yi);
+
+    /* Desenha as retas no gráfico. */
+
 
     for(int i = 1; i < tamanho; i++)
     {
         xf = qRound(i * width()/((float) tamanho-1));
         yf = qRound(height() - (dados->at(i).valor - menorY) * proporcaoY);
+
+        painter.setPen(QPen(Qt::blue, 5));
+        painter.drawPoint(xi, yi);
+
+        if(dados->at(i).valor != menorY && dados->at(i).valor != maiorY)
+        {
+            painter.drawText(xf+2, yf, QString::number(dados->at(i).valor));
+        }
+        else
+        {
+            if(dados->at(i).valor == menorY)
+            {
+                painter.drawText(xf+2, yf-2, QString::number(dados->at(i).valor));
+            }
+            else
+            {
+                painter.drawText(xf+2, yf+10, QString::number(dados->at(i).valor));
+            }
+        }
+
+        painter.setPen(QPen(Qt::black, 1));
         painter.drawLine(xi, yi, xf, yf);
         xi = xf;
         yi = yf;

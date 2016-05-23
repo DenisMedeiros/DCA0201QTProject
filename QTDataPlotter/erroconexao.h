@@ -16,7 +16,7 @@
  * @brief Esta é exceção que é gerada quando este programa 
  * não consegue conectar ao servidor via socket.
  */
-class ConexaoNaoEstabelecida
+class ErroConexao
 {
 
 private:
@@ -32,7 +32,7 @@ public:
    * Ele deve pode receber uma mensagem de erro como parâmetro.
    * @param _mensagem A mensagem de erro informada pelo usuário.
    */
-  ConexaoNaoEstabelecida(QString _mensagem = "Não foi possível se conectar ao servidor.") {
+  ErroConexao(QString _mensagem = "Não foi possível se conectar ao servidor.") {
       mensagem = _mensagem;
   }
 
