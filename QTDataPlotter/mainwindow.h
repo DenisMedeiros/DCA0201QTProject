@@ -6,7 +6,7 @@
 #include <QStringListModel>
 #include <QTimer>
 
-#include "conexao.h"
+#include "conexaoplotter.h"
 #include "conexaonaoestabelecida.h"
 
 namespace Ui {
@@ -36,7 +36,7 @@ private:
     QStringListModel *model;
 
     /** Conexão utilizada para se comunicar com o servidor. */
-    Conexao *conexao;
+    ConexaoPlotter *conexao;
 
 public slots:
     void conectar(bool ativado);

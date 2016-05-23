@@ -8,12 +8,29 @@
 
 Grafico::Grafico(QWidget *parent) : QWidget(parent)
 {
+    /* Inicializa as variáveis e instancia o objeto. */
     menorY = maiorY = 0;
+    dados = new QList<Dado>();
 }
 
-void Grafico::setDados(QList<Dado> &_dados)
+Grafico::~Grafico()
 {
-    dados = _dados;
+    delete dados;
+}
+
+int Grafico::getMenorY() const
+{
+    return menorY;
+}
+
+int Grafico::getMaiorY() const
+{
+    return maiorY;
+}
+
+void Grafico::setDados(const QList<Dado> &_dados)
+{
+    *dados = _dados;
 }
 
 void Grafico::setMenorY(int _menorY)
@@ -26,26 +43,19 @@ void Grafico::setMaiorY(int _maiorY)
     maiorY = _maiorY;
 }
 
-int Grafico::getMenorY()
-{
-    return menorY;
-}
-
-int Grafico::getMaiorY()
-{
-    return maiorY;
-}
-
 void Grafico::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
     QBrush brush;
     QPen pen;
-    double proporcaoY;
+    float proporcaoY;
     int tamanho, xi, yi, xf, yf;
+
+    tamanho = dados->size();
 
     painter.setRenderHint(QPainter::Antialiasing);
 
+    /* Prepara o brush e o pen para desenhar as linhas na tela. */
     pen.setColor(QColor(0, 0, 0));
     painter.setPen(pen);
 
@@ -56,18 +66,18 @@ void Grafico::paintEvent(QPaintEvent *e)
     /* Desenha o fundo da tela. */
     painter.drawRect(0, 0, width(), height());
 
-    /* Normaliza os dados entre 0 e 1. */
-
+    /* Calcula a proporção do tamanho de cada intervalo no eixo y. */
     proporcaoY = height()/((float) (maiorY - menorY));
 
+    /* Desenha as retas no gráfico. */
+
     xi = 0;
-    yi = qRound(height() - (dados[0].valor - menorY) * proporcaoY);
-    tamanho = dados.size();
+    yi = qRound(height() - (dados->at(0).valor - menorY) * proporcaoY);
 
     for(int i = 1; i < tamanho; i++)
     {
         xf = qRound(i * width()/((float) tamanho-1));
-        yf = qRound(height() - (dados[i].valor - menorY) * proporcaoY);
+        yf = qRound(height() - (dados->at(i).valor - menorY) * proporcaoY);
         painter.drawLine(xi, yi, xf, yf);
         xi = xf;
         yi = yf;

@@ -16,12 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    conexao = new Conexao();
+    conexao = new ConexaoPlotter();
     timerEnvio = new QTimer();
     timerListaClientes = new QTimer();
     clientes = new QStringList();
     clienteSelecionado = new QString();
-
 
     model = new QStringListModel(this);
 
@@ -246,7 +245,7 @@ void MainWindow::atualizarDados(void)
             ui->grafico->setMaiorY(maiorY);
         }
 
-        ui->grafico->repaint();
+        ui->grafico->update();
     }
 
 }

@@ -6,7 +6,6 @@
  * o servidor remoto.
  */
 
-
 #ifndef CONEXAO_H
 #define CONEXAO_H
 
@@ -15,10 +14,10 @@
 #include <QString>
 #include <QList>
 #include <QDateTime>
-#include <QTimer>
+#include "conexaonaoestabelecida.h"
 
 /**
- * @brief Esta estrutura serve para agrudar os dados para facilitar a plotagem
+ * @brief Esta estrutura serve para agrupar os dados para facilitar a plotagem
  * em um plano cartesiano.
  *
  * O datetime será tratado como o 'x' e o valor será tratado como o 'y'.
@@ -40,7 +39,7 @@ struct Dado {
 class Conexao : public QObject
 {
     Q_OBJECT
-private:
+protected:
     /** @brief Socket utilizado na comunicação. */
     QTcpSocket *socket;
 
@@ -74,7 +73,7 @@ public:
      *
      * @exception ConexaoNaoEstabelecida Caso haja um erro na criação do socket de comunicação.
      */
-    void abrir(QString &ip, unsigned int porta);
+    void abrir(QString &ip, quint16 porta);
 
     /**
      * @brief Este método fecha a conexão com o servidor removo.
@@ -84,10 +83,6 @@ public:
      *
      */
     void fechar(void);
-
-
-    QStringList getClientes(void);
-    QList<Dado> getDados(QString cliente);
 
     /**
      * @brief Este método checa se a conexão está ativa.
@@ -102,10 +97,29 @@ public:
     bool isAtiva(void);
 
 signals:
+    /**
+     * @brief Este sinal é emitido quando um erro ocorre com socket de forma assíncrona.
+     *
+     * A ideia é que este sinal seja emitido de forma assíncrona quando a conexão com o servidor cair.
+     * Para isso, ele trabalha junto com o slot 'emiteFalhaConexao', que está conectado com o o sinal
+     * do socket chamado de 'disconnected'.
+     *
+     * Na prática, quando ocorrer um erro com o socket, ele emitirá um sinal a ser capturado pelo slot
+     * 'emiteFalhaConexao' e este, finalmente, emite o sinal 'falhaConexao' para ser capturado por outro QObject
+     * avisando que ocorreu uma falha na conexão.
+     *
+     */
     void falhaConexao(void);
 
 public slots:
-    void avisaFalhaConexao(void);
+    /**
+     * @brief Este slot detecta quando o socket perde a conexão com o servidor remoto.
+     *
+     * Em sincronia com o sinal 'falhaConexao', este socket emite aquele sinal para avisar
+     * outros QObjects que ocorreu um erro na comunicação com o servidor.
+     *
+     */
+    void emiteFalhaConexao(void);
 };
 
 #endif // CONEXAO_H
