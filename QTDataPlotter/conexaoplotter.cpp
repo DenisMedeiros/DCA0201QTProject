@@ -1,5 +1,6 @@
 #include "conexaoplotter.h"
 
+
 ConexaoPlotter::ConexaoPlotter(void) : Conexao()
 {
 }
@@ -37,6 +38,7 @@ QStringList ConexaoPlotter::getClientes(void)
     } else {
         throw ErroConexao("Erro na conexão: Servidor parou de responder.");
     }
+
 
     return clientes;
 }
@@ -86,6 +88,8 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
     {
         throw ErroConexao("Erro na conexão: Servidor parou de responder.");
     }
+
+    qDebug() << dados.size();
 
     return dados;
 }

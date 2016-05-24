@@ -6,6 +6,7 @@
 #include <QAbstractItemView>
 #include <QModelIndexList>
 #include <QList>
+#include <QElapsedTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,19 +18,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     conexao = new ConexaoPlotter();
-    timerEnvio = new QTimer();
-    timerListaClientes = new QTimer();
+    timer = new QTimer();
     clientes = new QStringList();
     clienteSelecionado = new QString();
 
     model = new QStringListModel(this);
 
+    ui->statusBar->showMessage("Desconectado");
+
     /* Adiciona o modelo na lista e torne-a não editável. */
     ui->listViewClientes->setModel(model);
     ui->listViewClientes->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    /* Selecione apenas uma linha. */
-
+    /* Permite selecionar apenas uma linha. */
     ui->listViewClientes->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     /* Expressão regular para validar um endereço IP + uma porta. */
@@ -51,10 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectar(bool)));
     connect(ui->pushButtonPlot, SIGNAL(pressed()), this, SLOT(plot(void)));
 
-    connect(timerEnvio, SIGNAL(timeout()), this, SLOT(atualizarDados()));
-    connect(timerListaClientes, SIGNAL(timeout()), this, SLOT(atualizarListaClientes()));
-
-
+    connect(timer, SIGNAL(timeout()), this, SLOT(atualizar()));
     connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
     /* Esconde o gráfico e os labels. */
@@ -63,146 +61,66 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->labelXFim->hide();
     ui->labelYInicio->hide();
     ui->labelYFim->hide();
-
-
 }
 
 MainWindow::~MainWindow()
 {
-    if(timerEnvio->isActive())
+    if(timer->isActive())
     {
-        timerEnvio->stop();
-    }
-    if(timerListaClientes->isActive())
-    {
-        timerListaClientes->stop();
+        timer->stop();
     }
 
     delete clienteSelecionado;
     delete clientes;
+    delete timer;
     delete ipPortaValidator;
     delete model;
     delete conexao;
     delete ui;
 }
 
-void MainWindow::conectar(bool ativado)
+void MainWindow::atualizarListaClientes()
 {
-    QString ip;
-    unsigned int porta;
-    QStringList ipPorta;
+    QStringList clientesServidor;
 
-    if(ativado){ /* Se o usuário clicou em 'Conectar'. */
+    if(conexao->isAtiva())
+    {
+        clientesServidor = conexao->getClientes();
 
-        /* A string está no formato IP:porta e são separados abaixo. */
-        ipPorta = ui->lineEditIPPorta->text().split(":");
-
-        /* Valida a porta e IP. */
-
-        if(ipPorta.size() != 2) {
-            ui->statusBar->clearMessage();
-            ui->statusBar->showMessage("Porta ou IP inválidos.");
-            ui->pushButtonConectar->setChecked(false);
-            return;
-        }
-
-        ip = ipPorta.at(0);
-        porta = ipPorta.at(1).toUInt();
-
-        try
+        /* Verifica se é o primeiro preenchimento ou se a lista atualizou. */
+        if((ui->listViewClientes->model()->rowCount() == 0) || (*clientes != clientesServidor))
         {
-            conexao->abrir(ip, porta);
+            /* Atualiza a lista de clientes localmente. */
+            *clientes = clientesServidor;
 
-            /* Verifique se existe algum cliente conectado. */
-            atualizarListaClientes();
+            /* Limpa a lista e a preenche novamente. */
+            model->removeRows(0, model->rowCount());
 
-            ui->statusBar->clearMessage();
-            ui->statusBar->showMessage("Conectado com sucesso ao servidor "
-                    + ip + " na porta " + QString::number(porta) + ".");
-
-            ui->pushButtonPlot->setEnabled(true);
-            ui->pushButtonConectar->setText("Desconectar");
-
-            atualizarListaClientes();
-            timerListaClientes->start(1000);
+            foreach(QString cliente, *clientes){
+                /* Insere um dado numa nova linha no início da lista. */
+                model->insertRows(0, 1);
+                model->setData(model->index(0), cliente);
+            }
         }
-        catch(ErroConexao &erro)
-        {
-            conexao->fechar();
-
-            ui->pushButtonConectar->setChecked(false);
-            ui->statusBar->clearMessage();
-            ui->statusBar->showMessage(QString(erro.getMensagem()));
-        }
-
-    } else { /* Se o usuário clicou em 'Desconectar'. */
-
-        conexao->fechar();
-        timerEnvio->stop();
-        timerListaClientes->stop();
-
-        /* Remove a lista de clientes. */
-        model->removeRows(0, model->rowCount());
-
-        ui->statusBar->clearMessage();
-        ui->statusBar->showMessage("Desconectado");
-
-        ui->pushButtonConectar->setEnabled(true);
-        ui->pushButtonConectar->setText("Conectar");
-
-        /* Esconda o gráfico. */
-        ui->grafico->hide();
-        ui->labelXInicio->hide();
-        ui->labelXFim->hide();
-        ui->labelYInicio->hide();
-        ui->labelYFim->hide();
     }
 }
 
-void MainWindow::plot(void)
+void MainWindow::atualizarDadosCliente(void)
 {
-
-    QString cliente;
-    QModelIndexList indices;
-
-    if(conexao->isAtiva()){
-
-        indices = ui->listViewClientes->selectionModel()->selectedIndexes();
-        cliente = ui->listViewClientes->model()->data(indices.at(0)).toString();
-
-        if(cliente != *clienteSelecionado)
-        {
-            *clienteSelecionado = cliente;
-        }
-
-        ui->statusBar->clearMessage();
-        ui->statusBar->showMessage("Plotando os dados do cliente " + *clienteSelecionado + ".");
-
-        atualizarDados();
-        timerEnvio->start(1000);
-    }
-
-    /* Exibe o gráfico e os labels. */
-    ui->grafico->show();
-    ui->labelXInicio->show();
-    ui->labelXFim->show();
-    ui->labelYInicio->show();
-    ui->labelYFim->show();
-
-}
-
-void MainWindow::atualizarDados(void)
-{
-    QString cliente;
-    QModelIndexList indices;
     QList<Dado> dados, ultimos20dados;
     QList<int> valores;
     int menorY, maiorY;
 
-    indices = ui->listViewClientes->selectionModel()->selectedIndexes();
-
     if(conexao->isAtiva())
     {
+        /* Se nenhum cliente foi selecionado ainda, pule esta etapa. */
+        if(clienteSelecionado->isEmpty())
+        {
+            return;
+        }
+
+        /* Atualiza lista os dados do cliente selecionado. */
+
         dados = conexao->getDados(*clienteSelecionado);
 
         /* Obtem os ultimos 20 dados. */
@@ -244,41 +162,102 @@ void MainWindow::atualizarDados(void)
         ui->grafico->setMaiorY(maiorY);
 
         ui->grafico->update();
+
     }
 
 }
 
-void MainWindow::atualizarListaClientes()
+void MainWindow::conectar(bool ativado)
 {
-    QStringList clientesServidor;
+    QString ip;
+    unsigned int porta;
+    QStringList ipPorta;
 
-    if(conexao->isAtiva())
-    {
-        clientesServidor = conexao->getClientes();
+    if(ativado){ /* Se o usuário clicou em 'Conectar'. */
 
-        /* Verifica se é o primeiro preenchimento ou se a lista atualizou. */
-        if((ui->listViewClientes->model()->rowCount() == 0) || (*clientes != clientesServidor))
-        {
-            /* Limpa a lista e a preenche novamente. */
-            model->removeRows(0, model->rowCount());
+        /* A string está no formato IP:porta e são separados abaixo. */
+        ipPorta = ui->lineEditIPPorta->text().split(":");
 
-            foreach(QString cliente, *clientes){
-                /* Insere um dado numa nova linha no início da lista. */
-                model->insertRows(0, 1);
-                model->setData(model->index(0), cliente);
-            }
+        /* Valida a porta e IP. */
 
-            /* Atualiza a lista de clientes localmente. */
-            *clientes = clientesServidor;
+        if(ipPorta.size() != 2) {
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage("Porta ou IP inválidos.");
+            ui->pushButtonConectar->setChecked(false);
+            return;
         }
+
+        ip = ipPorta.at(0);
+        porta = ipPorta.at(1).toUInt();
+
+        try
+        {
+            conexao->abrir(ip, porta);
+
+            atualizarListaClientes();
+
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage("Conectado com sucesso ao servidor "
+                    + ip + " na porta " + QString::number(porta) + ".");
+
+            ui->pushButtonPlot->setEnabled(true);
+            ui->pushButtonConectar->setText("Desconectar");
+
+            /* Inicializa o timer que atualizará os clientes e os dados. */
+            timer->start(1000);
+        }
+        catch(ErroConexao &erro)
+        {
+            conexao->fechar();
+
+            ui->pushButtonConectar->setChecked(false);
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage(QString(erro.getMensagem()));
+        }
+
+    } else { /* Se o usuário clicou em 'Desconectar'. */
+
+        conexao->fechar();
+        timer->stop();
+
+        /* Remove a lista de clientes. */
+
+        model->removeRows(0, model->rowCount());
+
+        ui->statusBar->clearMessage();
+        ui->statusBar->showMessage("Desconectado");
+
+        ui->pushButtonConectar->setEnabled(true);
+        ui->pushButtonConectar->setText("Conectar");
+
+        /* Esconda o gráfico. */
+        ui->grafico->hide();
+        ui->labelXInicio->hide();
+        ui->labelXFim->hide();
+        ui->labelYInicio->hide();
+        ui->labelYFim->hide();
     }
+}
+
+void MainWindow::atualizar(void)
+{
+    QElapsedTimer eTimer;
+    /* Atualiza lista dos clientes do servidor. */
+
+    eTimer.start();
+    atualizarListaClientes();
+    qDebug() << "Lista de Clientes" << eTimer.elapsed() << "milliseconds";
+
+    eTimer.start();
+    /* Atualiza os dados do cliente selecionado. */
+    atualizarDadosCliente();
+    qDebug() << "Lista de Dados" << eTimer.elapsed() << "milliseconds";
 }
 
 void MainWindow::falhaConexao()
 {
     conexao->fechar();
-    timerEnvio->stop();
-    timerListaClientes->stop();
+    timer->stop();
 
     /* Remove a lista de clientes. */
     model->removeRows(0, model->rowCount());
@@ -297,4 +276,33 @@ void MainWindow::falhaConexao()
     ui->statusBar->clearMessage();
     ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
 
+}
+
+void MainWindow::plot(void)
+{
+    QString cliente;
+    QModelIndexList indices;
+
+    if(conexao->isAtiva())
+    {
+        indices = ui->listViewClientes->selectionModel()->selectedIndexes();
+        cliente = ui->listViewClientes->model()->data(indices.at(0)).toString();
+
+        if(cliente != *clienteSelecionado)
+        {
+            *clienteSelecionado = cliente;
+        }
+
+        ui->statusBar->clearMessage();
+        ui->statusBar->showMessage("Plotando os dados do cliente " + *clienteSelecionado + ".");
+    }
+
+    atualizarDadosCliente();
+
+    /* Exibe o gráfico e os labels. */
+    ui->grafico->show();
+    ui->labelXInicio->show();
+    ui->labelXFim->show();
+    ui->labelYInicio->show();
+    ui->labelYFim->show();
 }

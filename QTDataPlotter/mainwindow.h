@@ -24,8 +24,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    QTimer *timerEnvio;
-    QTimer *timerListaClientes;
+    QTimer *timer;
     QStringList *clientes;
     QString *clienteSelecionado;
 
@@ -38,11 +37,13 @@ private:
     /** Conexão utilizada para se comunicar com o servidor. */
     ConexaoPlotter *conexao;
 
+    void atualizarListaClientes(void);
+    void atualizarDadosCliente(void);
+
 public slots:
     void conectar(bool ativado);
     void plot(void);
-    void atualizarDados(void);
-    void atualizarListaClientes(void);
+    void atualizar(void);
     void falhaConexao(void);
 };
 
