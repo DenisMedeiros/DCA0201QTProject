@@ -24,7 +24,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    QTimer *timerEnvio;
+    QTimer *timerDados;
     QTimer *timerListaClientes;
     QStringList *clientes;
     QString *clienteSelecionado;
@@ -36,7 +36,8 @@ private:
     QStringListModel *model;
 
     /** Conexão utilizada para se comunicar com o servidor. */
-    ConexaoPlotter *conexao;
+    ConexaoPlotter *conexaoDados;
+    ConexaoPlotter *conexaoListaClientes;
 
 public slots:
     void conectar(bool ativado);
