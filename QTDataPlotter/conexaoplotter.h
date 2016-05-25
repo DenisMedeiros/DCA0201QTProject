@@ -58,6 +58,8 @@ public:
      * @return Lista com os dados enviados por aquele cliente para o servidor.
      */
     QList<Dado> getDados(QString cliente);
+
+    QList<Dado> getUltimos20Dados(QString cliente);
 };
 
 #endif // CONEXAOPLOTTER_H

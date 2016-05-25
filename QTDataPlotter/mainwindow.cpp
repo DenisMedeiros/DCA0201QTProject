@@ -60,13 +60,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(conexaoDados, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
     connect(conexaoListaClientes, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
+    ui->pushButtonPlot->setEnabled(false);
+
     /* Esconde o gráfico e os labels. */
     ui->grafico->hide();
     ui->labelXInicio->hide();
     ui->labelXFim->hide();
     ui->labelYInicio->hide();
     ui->labelYFim->hide();
-
 
 }
 
@@ -130,12 +131,16 @@ void MainWindow::conectar(bool ativado)
             ui->pushButtonPlot->setEnabled(true);
             ui->pushButtonConectar->setText("Desconectar");
 
+            ui->pushButtonPlot->setEnabled(true);
+
             atualizarListaClientes();
         }
         catch(ErroConexao &erro)
         {
             conexaoDados->fechar();
             conexaoListaClientes->fechar();
+
+            ui->pushButtonPlot->setEnabled(false);
 
             ui->pushButtonConectar->setChecked(false);
             ui->statusBar->clearMessage();
@@ -155,6 +160,8 @@ void MainWindow::conectar(bool ativado)
 
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Desconectado");
+
+        ui->pushButtonPlot->setEnabled(false);
 
         ui->pushButtonConectar->setEnabled(true);
         ui->pushButtonConectar->setText("Conectar");
@@ -177,6 +184,14 @@ void MainWindow::plot(void)
     if(conexaoDados->isAtiva()){
 
         indices = ui->listViewClientes->selectionModel()->selectedIndexes();
+
+        if(indices.isEmpty())
+        {
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage("Você precisa selecionar um cliente na lista.");
+            return;
+        }
+
         cliente = ui->listViewClientes->model()->data(indices.at(0)).toString();
 
         if(cliente != *clienteSelecionado)
@@ -189,15 +204,15 @@ void MainWindow::plot(void)
 
         atualizarDados();
         timerDados->start(1000);
+
+        /* Exibe o gráfico e os labels. */
+        ui->grafico->show();
+        ui->labelXInicio->show();
+        ui->labelXFim->show();
+        ui->labelYInicio->show();
+        ui->labelYFim->show();
+
     }
-
-    /* Exibe o gráfico e os labels. */
-    ui->grafico->show();
-    ui->labelXInicio->show();
-    ui->labelXFim->show();
-    ui->labelYInicio->show();
-    ui->labelYFim->show();
-
 }
 
 void MainWindow::atualizarDados(void)
@@ -208,10 +223,9 @@ void MainWindow::atualizarDados(void)
     QList<int> valores;
     int menorY, maiorY;
 
-    indices = ui->listViewClientes->selectionModel()->selectedIndexes();
-
     if(conexaoDados->isAtiva())
     {
+
         dados = conexaoDados->getDados(*clienteSelecionado);
 
         /* Obtem os ultimos 20 dados. */
@@ -223,6 +237,9 @@ void MainWindow::atualizarDados(void)
         {
             ultimos20dados = dados.mid(dados.size()-20);
         }
+
+        ui->grafico->setDados(ultimos20dados);
+        ui->grafico->update();
 
         /* Encontre o menor e maior valor do eixo Y. */
 
@@ -241,18 +258,13 @@ void MainWindow::atualizarDados(void)
         ui->labelYInicio->setText(QString::number(valores.at(0)));
         ui->labelYFim->setText(QString::number(valores.at(valores.size() - 1)));
 
-        ui->grafico->setDados(ultimos20dados);
-
         menorY = valores.at(0);
         maiorY = valores.at(valores.size()-1);
-
 
         /* Atualize os limites do eixo Y. */
 
         ui->grafico->setMenorY(menorY);
         ui->grafico->setMaiorY(maiorY);
-
-        ui->grafico->update();
     }
 }
 
@@ -262,6 +274,7 @@ void MainWindow::atualizarListaClientes()
 
     if(conexaoListaClientes->isAtiva())
     {
+
         clientesServidor = conexaoListaClientes->getClientes();
 
         /* Verifica se é o primeiro preenchimento ou se a lista atualizou. */

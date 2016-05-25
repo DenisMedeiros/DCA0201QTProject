@@ -41,6 +41,8 @@ QStringList ConexaoPlotter::getClientes(void)
     return clientes;
 }
 
+
+
 QList<Dado> ConexaoPlotter::getDados(QString cliente)
 {
 
@@ -50,6 +52,7 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
     QDateTime datetime;
     Dado dado;
     int valor;
+
 
     comando = "get " + cliente + "\r\n";
 
@@ -88,4 +91,66 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
     }
 
     return dados;
+}
+
+QList<Dado> ConexaoPlotter::getUltimos20Dados(QString cliente)
+{
+    QList<Dado> dados;
+    QString linha, todosDados, ultimos20Dados, comando, datetimeStr, valorStr;
+    QStringList datetimeValor;
+    QDateTime datetime;
+    Dado dado;
+    int valor;
+
+    comando = "get " + cliente + "\r\n";
+
+    if(isAtiva())
+    {
+
+        socket->write(comando.toStdString().c_str());
+        socket->waitForBytesWritten(3000);
+        socket->waitForReadyRead(3000);
+
+        while(socket->bytesAvailable())
+        {
+            linha = socket->readLine().replace("\n","").replace("\r","");
+            todosDados.append(linha);
+        }
+
+        if(todosDados.size() <= 20)
+        {
+            ultimos20Dados = todosDados;
+        }
+        else
+        {
+            ultimos20Dados = todosDados.mid(dados.size()-20);
+        }
+
+        for(int i = 0; i < ultimos20Dados.size(); i++)
+        {
+            /* O dado está no formato '2016-05-19T08:21:58 8'. */
+            datetimeValor = linha.split(" ");
+
+            if(datetimeValor.size() == 2)
+            {
+                datetimeStr = datetimeValor.at(0);
+                valorStr = datetimeValor.at(1);
+
+                /* Transforme as strings nos tipos de dados corretos, construa o dado e adicione-o na lista de retorno. */
+                datetime = QDateTime::fromString(datetimeStr, Qt::ISODate);
+                valor = valorStr.toInt();
+                dado.datetime = datetime;
+                dado.valor = valor;
+
+                dados.append(dado);
+            }
+        }
+    }
+    else
+    {
+        throw ErroConexao("Erro na conexão: Servidor parou de responder.");
+    }
+
+    return dados;
+
 }
