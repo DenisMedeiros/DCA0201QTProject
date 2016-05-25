@@ -73,15 +73,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    if(timerDados->isActive())
-    {
-        timerDados->stop();
-    }
-    if(timerListaClientes->isActive())
-    {
-        timerListaClientes->stop();
-    }
-
+    delete timerDados;
+    delete timerListaClientes;
     delete clienteSelecionado;
     delete clientes;
     delete ipPortaValidator;
@@ -219,31 +212,21 @@ void MainWindow::atualizarDados(void)
 {
     QString cliente;
     QModelIndexList indices;
-    QList<Dado> dados, ultimos20dados;
+    QList<Dado> ultimos20Dados;
     QList<int> valores;
     int menorY, maiorY;
 
     if(conexaoDados->isAtiva())
     {
 
-        dados = conexaoDados->getDados(*clienteSelecionado);
+        ultimos20Dados = conexaoDados->getUltimos20Dados(*clienteSelecionado);
 
-        /* Obtem os ultimos 20 dados. */
-        if(dados.size() <= 20)
-        {
-            ultimos20dados = dados;
-        }
-        else
-        {
-            ultimos20dados = dados.mid(dados.size()-20);
-        }
-
-        ui->grafico->setDados(ultimos20dados);
+        ui->grafico->setDados(ultimos20Dados);
         ui->grafico->update();
 
         /* Encontre o menor e maior valor do eixo Y. */
 
-        foreach(Dado dado, ultimos20dados)
+        foreach(Dado dado, ultimos20Dados)
         {
             valores.append(dado.valor);
         }
@@ -252,8 +235,8 @@ void MainWindow::atualizarDados(void)
 
         /* Altere os labels para os valores iniciais e finais em cada eixo. */
 
-        ui->labelXInicio->setText(ultimos20dados.at(0).datetime.toString("dd.MM.yyyy hh:mm:ss"));
-        ui->labelXFim->setText(ultimos20dados.at(ultimos20dados.size()- 1).datetime.toString("dd.MM.yyyy hh:mm:ss"));
+        ui->labelXInicio->setText(ultimos20Dados.at(0).datetime.toString("dd.MM.yyyy hh:mm:ss"));
+        ui->labelXFim->setText(ultimos20Dados.at(ultimos20Dados.size()- 1).datetime.toString("dd.MM.yyyy hh:mm:ss"));
 
         ui->labelYInicio->setText(QString::number(valores.at(0)));
         ui->labelYFim->setText(QString::number(valores.at(valores.size() - 1)));

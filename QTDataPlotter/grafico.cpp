@@ -4,11 +4,10 @@
 #include <QPen>
 #include <QColor>
 #include <QDateTime>
-#include <cmath>
 
 Grafico::Grafico(QWidget *parent) : QWidget(parent)
 {
-    /* Inicializa as variáveis e instancia o objeto. */
+    /* Inicializa as variáveis e instancia a lista de dados. */
     menorY = maiorY = 0;
     dados = new QList<Dado>();
 }
@@ -72,28 +71,25 @@ void Grafico::paintEvent(QPaintEvent *e)
     painter.drawRect(0, 0, width(), height());
 
     /* Calcula a proporção do tamanho de cada intervalo no eixo y. */
+
     proporcaoY = height()/((float) (maiorY - menorY));
 
+    /* Determina os valores iniciais. */
     xi = 0;
     yi = qRound(height() - (dados->at(0).valor - menorY) * proporcaoY);
 
-    /* Desenha o ponto. */
-
-    painter.setPen(QPen(Qt::blue, 5));
-    painter.drawPoint(xi, yi);
-
-    /* Desenha as retas no gráfico. */
-
-
     for(int i = 1; i < tamanho; i++)
     {
+        /* Arrendonda os valores para o inteiro mais próximo, pois são coordenadas em pixels. */
         xf = qRound(i * width()/((float) tamanho-1));
         yf = qRound(height() - (dados->at(i).valor - menorY) * proporcaoY);
 
+        /* Desenha os poontos inicial e final. */
         painter.setPen(QPen(Qt::blue, 5));
         painter.drawPoint(xi, yi);
         painter.drawPoint(xf, yf);
 
+        /* Escreve o valor do dado próximo ao ponto. */
         if(dados->at(i).valor != menorY && dados->at(i).valor != maiorY)
         {
             painter.drawText(xf+5, yf, QString::number(dados->at(i).valor));
@@ -110,8 +106,11 @@ void Grafico::paintEvent(QPaintEvent *e)
             }
         }
 
+         /* Desenha as retas no gráfico. */
         painter.setPen(QPen(Qt::black, 1));
         painter.drawLine(xi, yi, xf, yf);
+
+        /* Atualiza os valores iniciais. */
         xi = xf;
         yi = yf;
     }

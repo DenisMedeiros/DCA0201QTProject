@@ -43,7 +43,7 @@ QStringList ConexaoPlotter::getClientes(void)
 
 
 
-QList<Dado> ConexaoPlotter::getDados(QString cliente)
+QList<Dado> ConexaoPlotter::getTodosDados(QString cliente)
 {
 
     QList<Dado> dados;
@@ -52,7 +52,6 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
     QDateTime datetime;
     Dado dado;
     int valor;
-
 
     comando = "get " + cliente + "\r\n";
 
@@ -70,6 +69,7 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
             /* O dado está no formato '2016-05-19T08:21:58 8'. */
             datetimeValor = linha.split(" ");
 
+            /* Faz o tratamento dos dados e adiciona-o na lista de retorno. */
             if(datetimeValor.size() == 2)
             {
                 datetimeStr = datetimeValor.at(0);
@@ -96,8 +96,8 @@ QList<Dado> ConexaoPlotter::getDados(QString cliente)
 QList<Dado> ConexaoPlotter::getUltimos20Dados(QString cliente)
 {
     QList<Dado> dados;
-    QString linha, todosDados, ultimos20Dados, comando, datetimeStr, valorStr;
-    QStringList datetimeValor;
+    QString linha, comando, datetimeStr, valorStr;
+    QStringList datetimeValor, todosDados, ultimos20Dados;
     QDateTime datetime;
     Dado dado;
     int valor;
@@ -111,25 +111,29 @@ QList<Dado> ConexaoPlotter::getUltimos20Dados(QString cliente)
         socket->waitForBytesWritten(3000);
         socket->waitForReadyRead(3000);
 
+        /* Primeiro lê todos os dados e trate-os como QString. */
         while(socket->bytesAvailable())
         {
+
             linha = socket->readLine().replace("\n","").replace("\r","");
             todosDados.append(linha);
         }
 
+        /* Obtém os últimos 20 dados. */
         if(todosDados.size() <= 20)
         {
             ultimos20Dados = todosDados;
         }
         else
         {
-            ultimos20Dados = todosDados.mid(dados.size()-20);
+            ultimos20Dados = todosDados.mid(todosDados.size()-20);
         }
 
-        for(int i = 0; i < ultimos20Dados.size(); i++)
+        /* Faz o tratamento desses últimos 20 dados. */
+        foreach(QString dadoStr, ultimos20Dados)
         {
             /* O dado está no formato '2016-05-19T08:21:58 8'. */
-            datetimeValor = linha.split(" ");
+            datetimeValor = dadoStr.split(" ");
 
             if(datetimeValor.size() == 2)
             {
@@ -152,5 +156,4 @@ QList<Dado> ConexaoPlotter::getUltimos20Dados(QString cliente)
     }
 
     return dados;
-
 }

@@ -10,7 +10,7 @@
 #define CONEXAOPLOTTER_H
 
 #include "conexao.h"
-#include <QStringList>
+#include <QString>
 #include <QList>
 
 /**
@@ -51,14 +51,26 @@ public:
     QStringList getClientes(void);
 
     /**
-     * @brief Este método retorna a lista dos clientes conectados ao servidor.
+     * @brief Este método retorna todos os dados referentes ao cliente.
+     *
+     * Os dados retornos já estão devidamente tratados e pronto para uso.
      *
      * @param cliente IP do cliente que se deseja obter os dados enviados.
      *
      * @return Lista com os dados enviados por aquele cliente para o servidor.
      */
-    QList<Dado> getDados(QString cliente);
+    QList<Dado> getTodosDados(QString cliente);
 
+
+    /**
+     * @brief Este método retorna apenas os últimos 20 dados enviados pelo cliente.
+     *
+     * Os dados retornos já estão devidamente tratados e pronto para uso.
+     *
+     * @param cliente IP do cliente que se deseja obter os dados enviados.
+     *
+     * @return Lista com os dados enviados por aquele cliente para o servidor.
+     */
     QList<Dado> getUltimos20Dados(QString cliente);
 };
 

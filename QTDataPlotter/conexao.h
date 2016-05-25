@@ -39,6 +39,7 @@ struct Dado {
 class Conexao : public QObject
 {
     Q_OBJECT
+
 protected:
     /** @brief Socket utilizado na comunicação. */
     QTcpSocket *socket;

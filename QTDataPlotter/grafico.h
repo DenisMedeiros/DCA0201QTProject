@@ -83,7 +83,6 @@ public:
      * @param _maiorY Maior valor do eixo y do gráfico.
      */
     void setMaiorY(int _maiorY);
-signals:
 
 protected:
     /**
@@ -93,7 +92,11 @@ protected:
      */
     void paintEvent(QPaintEvent *e);
 
+signals:
+
 public slots:
+
+
 
 };
 

@@ -53,6 +53,7 @@ private:
 public:
     /**
      * @brief Este é o construtor padrão desta classe.
+     *
      * @param parent É o QWidget onde a MainWindow será
      * desenhada.
      */

@@ -14,6 +14,7 @@ Conexao::~Conexao()
     {
         socket->close();
     }
+
     delete socket;
 }
 
@@ -24,7 +25,7 @@ void Conexao::abrir(QString &ip, quint16 porta)
 
     if(!socket->waitForConnected(3000))
     {
-        throw ErroConexao("Erro na conexão: " + socket->errorString());
+        throw ErroConexao("Erro na abertura da conexão: " + socket->errorString());
     }
 
 }
