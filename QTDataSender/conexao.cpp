@@ -18,7 +18,7 @@ Conexao::~Conexao()
     delete socket;
 }
 
-void Conexao::abrir(QString &ip, quint16 porta)
+void Conexao::abrir(const QString &ip, quint16 porta)
 {
     /* Tenta abrir a conexão por 3 segundos. Se falhar, gera uma exceção. */
     socket->connectToHost(ip, porta);
@@ -38,7 +38,7 @@ void Conexao::fechar()
     }
 }
 
-bool Conexao::isAtiva()
+bool Conexao::isAtiva() const
 {
     /* Checa se o socket está aberto e conectado. */
     return (socket->isOpen() && socket->state() == QTcpSocket::ConnectedState);

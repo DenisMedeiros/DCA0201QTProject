@@ -13,7 +13,7 @@ void ConexaoSender::enviar(const QString &dado) const
 {
     QString comando;
 
-    if (this->isAtiva())
+    if (isAtiva())
     {
 
         /* Formata o comando e faz seu envio para o servidor. */

@@ -74,7 +74,7 @@ public:
      *
      * @exception ConexaoNaoEstabelecida Caso haja um erro na criação do socket de comunicação.
      */
-    void abrir(QString &ip, quint16 porta);
+    void abrir(const QString &ip, quint16 porta);
 
     /**
      * @brief Este método fecha a conexão com o servidor removo.
@@ -95,7 +95,7 @@ public:
      * @return true Se o socket estiver aberto;
      *         false Se o socket estiver fechado.
      */
-    bool isAtiva(void);
+    bool isAtiva(void) const;
 
 signals:
     /**
