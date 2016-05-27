@@ -1,19 +1,19 @@
 /**
- * @file conexaonaoestabelecida.h
+ * @file erroconexao.h
  * @author Denis Ricardo da Silva Medeiros
  * @date 10 May 2016
- * @brief Exceção que é gerada quando este programa 
+ * @brief Exceção que é gerada quando este programa
  * não consegue conectar ao servidor.
  */
 
-#ifndef CONEXAONAOESTABELECIDA_H
-#define CONEXAONAOESTABELECIDA_H
+#ifndef ERROCONEXAO_H
+#define ERROCONEXAO_H
 
 #include <iostream>
 #include <QString>
 
 /**
- * @brief Esta é exceção que é gerada quando este programa 
+ * @brief Esta é exceção que é gerada quando este programa
  * não consegue conectar ao servidor via socket.
  */
 class ErroConexao
@@ -47,4 +47,4 @@ public:
 
 };
 
-#endif // CONEXAONAOESTABELECIDA_H
+#endif // ERROCONEXAO_H

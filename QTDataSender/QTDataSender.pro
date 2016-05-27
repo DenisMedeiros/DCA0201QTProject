@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    conexao.cpp
+    conexao.cpp \
+    conexaosender.cpp
 
 HEADERS  += mainwindow.h \
     conexao.h \
-    conexaonaoestabelecida.h
+    conexaosender.h \
+    erroconexao.h
 
 FORMS    += mainwindow.ui

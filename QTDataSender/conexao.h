@@ -1,7 +1,7 @@
 /**
  * @file conexao.h
  * @author Denis Ricardo da Silva Medeiros
- * @date 10 May 2016
+ * @date 18 May 2016
  * @brief Classe responsável pela conexao entre o programa e
  * o servidor remoto.
  */
@@ -12,8 +12,21 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QString>
-#include <QTimer>
-#include "conexaonaoestabelecida.h"
+#include <QList>
+#include <QDateTime>
+#include "erroconexao.h"
+
+/**
+ * @brief Esta estrutura serve para agrupar os dados para facilitar a plotagem
+ * em um plano cartesiano.
+ *
+ * O datetime será tratado como o 'x' e o valor será tratado como o 'y'.
+ *
+ */
+struct Dado {
+    QDateTime datetime;
+    int valor;
+};
 
 /**
  * @brief Esta é a classe responsável pela conexão entre o cliente
@@ -27,72 +40,27 @@ class Conexao : public QObject
 {
     Q_OBJECT
 
-private:
-
+protected:
     /** @brief Socket utilizado na comunicação. */
     QTcpSocket *socket;
-
-    /** @brief Timer utilizado para enviar os dados em um período definido. */
-    QTimer *timer;
-
-    /** @brief Valor mínimo que pode ser gerado e enviado para os servidor. */
-    int faixaInicio;
-
-    /** @brief Valor máximo que pode ser gerado e enviado para os servidor. */
-    int faixaFim;
-
-    /** @brief Período de tempo para o envio períodico de dados para o servidor. */
-    int intervalo;
-
-    /**
-     * @brief Este método auxiliar gera um número aleatório inteiro entre
-     * min e max (eles não são incluídos).
-     *
-     * @param min Valor mínimo para geração do número inteiro.
-     * @param max Valor máximo para a geração do número inteiro.
-     *
-     * @return Um número aleatório entre e inclusive min e max.
-     */
-    int numero_aleatorio(int min, int max);
 
 public:
     /**
      * @brief Este é o construtor padrão desta classe.
      *
-     * Ele instancia os objetos socket e timer; prepara a geração de números
-     * aleatórios e conecta alguns sinais a seus respectivos slots.
+     * Ele instancia os objeto socket e também interliga os principais
+     * sinais e slots.
      */
-    Conexao(void);
+    explicit Conexao(QObject *parent = 0);
 
     /**
      * @brief Este é o destrutor padrão desta classe.
      *
-     * Ele checa se tanto o timer quanto o socket ainda estão ativos e, após isso,
+     * Ele checa se o socket ainda estão ativo e, após isso,
      * libera a memória alocada por esses objetos.
      *
      */
     ~Conexao(void);
-
-    /**
-     * @brief Este método altera a faixa inicial dos dados.
-     *
-     * @param _faixaInicio Menor valor do intervalo que o dado pode assumir.
-     */
-    void setFaixaInicio(int _faixaInicio);
-
-    /**
-     * @brief Este método altera a faixa final dos dados.
-     *
-     * @param _faixaFim Menor valor do intervalo que o dado pode assumir.
-     */
-    void setFaixaFim(int _faixaFim);
-
-    /**
-     * @brief Este método altera o intervalo de envio dos dados.
-     *
-     * @param _intervalo Intervalo de tempo em que os dados serão enviados.
-     */
-    void setIntervalo(int _intervalo);
 
     /**
      * @brief Este método abre a conexão com o servidor removo.
@@ -106,7 +74,7 @@ public:
      *
      * @exception ConexaoNaoEstabelecida Caso haja um erro na criação do socket de comunicação.
      */
-    void abrir(QString &ip, unsigned int porta);
+    void abrir(QString &ip, quint16 porta);
 
     /**
      * @brief Este método fecha a conexão com o servidor removo.
@@ -129,55 +97,30 @@ public:
      */
     bool isAtiva(void);
 
+signals:
     /**
-     * @brief Este método inicia o processo de envio de dados.
+     * @brief Este sinal é emitido quando um erro ocorre com socket de forma assíncrona.
      *
-     * Ele inicia o timer responsável por ativar o envio de dados para o servidor
-     * remoto, no período identificado pelo atributo 'intervalo'.
+     * A ideia é que este sinal seja emitido de forma assíncrona quando a conexão com o servidor cair.
+     * Para isso, ele trabalha junto com o slot 'emiteFalhaConexao', que está conectado com o o sinal
+     * do socket chamado de 'disconnected'.
+     *
+     * Na prática, quando ocorrer um erro com o socket, ele emitirá um sinal a ser capturado pelo slot
+     * 'emiteFalhaConexao' e este, finalmente, emite o sinal 'falhaConexao' para ser capturado por outro QObject
+     * avisando que ocorreu uma falha na conexão.
      *
      */
-    void iniciarEnvio(void);
-
-
-    /**
-     * @brief Este método para o envio de dados.
-     *
-     * Ele basicamente para o timer, que é responsável por disparar o sinal
-     * que chama a função que envia o dado para o servidor.
-     *
-     * @return true Se o socket estiver aberto;
-     *         false Se o socket estiver fechado.
-     */
-    void pararEnvio(void);
-
+    void falhaConexao(void);
 
 public slots:
     /**
-     * @brief Este slot é responsável por gerar e enviar o dado para o servidor.
+     * @brief Este slot detecta quando o socket perde a conexão com o servidor remoto.
      *
-     * Uma vez que o timer disparou o sinal e este slot foi invocado, ele gerará o dado
-     * a ser enviado para o servidor com base nos parâmetros de faixas estabelecidos e
-     * utilizará o socket de comunicação para realizar esta ação.
+     * Em sincronia com o sinal 'falhaConexao', este socket emite aquele sinal para avisar
+     * outros QObjects que ocorreu um erro na comunicação com o servidor.
      *
      */
-    void enviar(void);
-
-signals:
-    /**
-     * @brief Este sinal é disparado quando um dado foi enviado com sucesso para o servidor.
-     *
-     * Ele é utilizado para informar à outras classes sobre o sucesso do envio,
-     * principalmente à MainWindow, para que esta exiba na tela o dado enviado como forma de log.
-     *
-     * @param dado O dado que foi enviado com sucesso.
-     *
-     * @return QString O dado que foi enviado com sucesso.
-     */
-    QString dadoEnviado(QString dado);
-
-    QString falhaDuranteEnvio(void);
-
-
+    void emiteFalhaConexao(void);
 };
 
 #endif // CONEXAO_H

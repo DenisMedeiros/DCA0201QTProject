@@ -11,7 +11,13 @@
 #include <QRegExp>
 #include <QStringList>
 #include <QDebug>
+#include <QDateTime>
 #include <cstdlib>
+
+int MainWindow::numero_aleatorio(int min, int max)
+{
+    return ((float(rand()) / float(RAND_MAX)) * (max - min + 2)) + min - 1;
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +28,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QRegExp ipPortaRegex;
 
     ui->setupUi(this);
+
+    timer = new QTimer();
+    faixaInicio = 0;
+    faixaFim = 10;
+    intervalo = 1;
+
+    /* Usa a hora atual como seed para os números aleatórios. */
+    qsrand(QDateTime::currentDateTime().toTime_t());
 
     /* Expressão regular para validar um endereço IP + uma porta. */
     ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
@@ -57,45 +71,46 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listViewRegistros->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     /* Cria a conexão. */
-    conexao = new Conexao();
+    conexao = new ConexaoSender();
 
-    /* Faz a conexão do sinal e slot de quando um dado é enviado para o servidor. */
-    connect(conexao, SIGNAL(dadoEnviado(QString)), this, SLOT(inserirDadoLista(QString)));
 
     /* Faz a conexão do sinal e slot de quando o intervalo é alterado. */
     connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), this, SLOT(alterarIntervalo(int)));
 
     /* Faz a conexão do botão 'Conectar' com o slot que abre a conexão com o servidor. */
-    connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectarServidor(bool)));
+    connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectar(bool)));
 
     /* Faz a conexão do slider de intervalo com o label que exibe o valor atual. */
     connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), ui->labelValorIntervalo, SLOT(setNum(int)));
+
+    /* Faz a conexão da expiração do timer com o slot que envia o dado para o servidor. */
+    connect(timer, SIGNAL(timeout()), this, SLOT(enviarDado()));
+
+    connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
 }
 
 MainWindow::~MainWindow()
 {
+    delete timer;
     delete ipPortaValidator;
     delete faixaValidator;
     delete conexao;
     delete ui;
 }
 
-void MainWindow::conectarServidor(bool ativado)
+void MainWindow::conectar(bool ativado)
 {
     QString ip, faixaInicioStr, faixaFimStr;
     QStringList ipPorta;
-    unsigned int porta;
-    int faixaInicio, faixaFim, intervalo;
-
+    quint16 porta;
 
     if (ativado) /* Se o usuário clicou em 'Conectar'. */
     {
         /* A string está no formato IP:porta e são separados abaixo. */
         ipPorta = ui->lineEditIPPorta->text().split(":");
 
-        /* Valida a porta e IP. */
-
+        /* Valida o endereço IP e a porta. */
         if(ipPorta.size() != 2) {
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Porta ou IP inválidos.");
@@ -121,12 +136,10 @@ void MainWindow::conectarServidor(bool ativado)
             return;
         }
 
-        /* Inicie imediatamente o envio de dados com base nos parâmetros definidos. */
-
         faixaInicio = faixaInicioStr.toInt();
         faixaFim = faixaFimStr.toInt();
 
-        /* Tente criar a conexão. */
+        /* Abre a conexão e inicia o timer que envia os dados. */
         try
         {
             conexao->abrir(ip, porta);
@@ -143,11 +156,7 @@ void MainWindow::conectarServidor(bool ativado)
             ui->lineEditFaixaInicio->setEnabled(false);
             ui->lineEditFaixaFim->setEnabled(false);
 
-            conexao->setFaixaInicio(faixaInicio);
-            conexao->setFaixaFim(faixaFim);
-            conexao->setIntervalo(intervalo);
-
-            conexao->iniciarEnvio();
+            timer->start(intervalo * 1000);
         }
 
         /* Caso tenha ocorrido algum erro na tentativa de conexão,
@@ -171,24 +180,51 @@ void MainWindow::conectarServidor(bool ativado)
         ui->lineEditFaixaInicio->setEnabled(true);
         ui->lineEditFaixaFim->setEnabled(true);
 
-        conexao->pararEnvio();
         conexao->fechar();
     }
 }
 
 
-void MainWindow::inserirDadoLista(QString dado)
-{
-    /* Insere um dado numa nova linha no início da lista. */
-    model->insertRows(0, 1);
-    model->setData(model->index(0), dado);
-}
-
-
-void MainWindow::alterarIntervalo(int intervalo)
+void MainWindow::alterarIntervalo(int _intervalo)
 {
     if(conexao->isAtiva())
     {
-        conexao->setIntervalo(intervalo);
+        intervalo = _intervalo;
+        timer->setInterval(intervalo * 1000);
     }
+}
+
+void MainWindow::enviarDado(void)
+{
+    QString dado;
+
+    if(conexao->isAtiva())
+    {
+        dado = QDateTime::currentDateTime().toString(Qt::ISODate)
+                + " " + QString::number(numero_aleatorio(faixaInicio, faixaFim));
+
+        conexao->enviar(dado);
+
+        model->insertRows(0, 1);
+        model->setData(model->index(0), dado);
+    }
+
+}
+
+void MainWindow::falhaConexao(void)
+{
+    conexao->fechar();
+    timer->stop();
+
+    /* Remove a lista de dados. */
+    model->removeRows(0, model->rowCount());
+
+
+    ui->pushButtonConectar->setEnabled(true);
+    ui->pushButtonConectar->setChecked(false);
+    ui->pushButtonConectar->setText("Conectar");
+
+
+    ui->statusBar->clearMessage();
+    ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
 }
