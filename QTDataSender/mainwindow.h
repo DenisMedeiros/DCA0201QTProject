@@ -63,6 +63,12 @@ private:
     /** Conexão utilizada para se comunicar com o servidor. */
     ConexaoSender *conexao;
 
+    /** Endereço IP do servidor. */
+    QString ip;
+
+    /** Porta do servidor. */
+    quint16 porta;
+
     /**
      * @brief Este método auxiliar gera um número aleatório inteiro entre
      * min e max (eles não são incluídos).
@@ -109,6 +115,17 @@ public slots:
      */
     void alterarIntervalo(int _intervalo);
 
+
+    /**
+     * @brief Este slot é invocado quando o botão de enviar dados é acionado.
+     *
+     * Ele basicamente inicia o timer responsável por fazer o envio periódio
+     * dos dados.
+     *
+     */
+    void iniciarEnvioDados(bool ativado);
+
+
     /**
      * @brief Este slot é invocado quando o timer dispara.
      *
@@ -126,6 +143,7 @@ public slots:
      *
      */
     void falhaConexao(void);
+
 
 };
 

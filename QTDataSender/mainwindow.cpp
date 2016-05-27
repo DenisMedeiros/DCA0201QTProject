@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     timer = new QTimer();
+    conexao = new ConexaoSender();
+
     faixaInicio = 0;
     faixaFim = 10;
     intervalo = 1;
@@ -70,8 +72,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listViewRegistros->setModel(model);
     ui->listViewRegistros->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    /* Cria a conexão. */
-    conexao = new ConexaoSender();
+
+    ui->pushButtonEnviarDados->setEnabled(false);
 
 
     /* Faz a conexão do sinal e slot de quando o intervalo é alterado. */
@@ -88,6 +90,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
+    connect(ui->pushButtonEnviarDados, SIGNAL(clicked(bool)),)
+
 }
 
 MainWindow::~MainWindow()
@@ -101,9 +105,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::conectar(bool ativado)
 {
-    QString ip, faixaInicioStr, faixaFimStr;
+    QString faixaInicioStr, faixaFimStr;
     QStringList ipPorta;
-    quint16 porta;
 
     if (ativado) /* Se o usuário clicou em 'Conectar'. */
     {
@@ -148,15 +151,10 @@ void MainWindow::conectar(bool ativado)
              * mude os elementos visuais da tela. */
             ui->pushButtonConectar->setText("Desconectar");
             ui->statusBar->clearMessage();
-            ui->statusBar->showMessage("Conectado e enviando dados para servidor "
+            ui->statusBar->showMessage("Conectado ao servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
 
-
-            /* Desabilita a alteração dos valores do intervalo. */
-            ui->lineEditFaixaInicio->setEnabled(false);
-            ui->lineEditFaixaFim->setEnabled(false);
-
-            timer->start(intervalo * 1000);
+            ui->pushButtonEnviarDados->setEnabled(true);
         }
 
         /* Caso tenha ocorrido algum erro na tentativa de conexão,
@@ -190,7 +188,46 @@ void MainWindow::alterarIntervalo(int _intervalo)
     if(conexao->isAtiva())
     {
         intervalo = _intervalo;
-        timer->setInterval(intervalo * 1000);
+
+        if(timer->isActive())
+        {
+            timer->setInterval(intervalo * 1000);
+        }
+    }
+}
+
+void MainWindow::iniciarEnvioDados(bool ativado)
+{
+
+    if(ativado)
+    {
+        ui->statusBar->clearMessage();
+        ui->statusBar->showMessage("Enviando dados para servidor "
+                + ip + " na porta " + QString::number(porta) + ".");
+
+        /* Desabilita a alteração dos valores do intervalo. */
+        ui->lineEditFaixaInicio->setEnabled(false);
+        ui->lineEditFaixaFim->setEnabled(false);
+
+        ui->pushButtonEnviarDados->setText("Parar");
+        ui->pushButtonEnviarDados->setChecked(true);
+
+        timer->start(intervalo * 1000);
+    }
+    else
+    {
+        /* Altera os elementos visuais, para o  envio de dados e fecha a coneções. */
+        ui->pushButtonConectar->setText("Enviar Dados");
+        ui->statusBar->clearMessage();
+        ui->statusBar->showMessage("Conectado ao servidor "
+                + ip + " na porta " + QString::number(porta) + ".");
+
+        /* Habilita a alteração dos valores do intervalo. */
+        ui->lineEditFaixaInicio->setEnabled(true);
+        ui->lineEditFaixaFim->setEnabled(true);
+
+        timer->stop();
+
     }
 }
 
