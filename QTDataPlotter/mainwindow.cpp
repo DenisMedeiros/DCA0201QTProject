@@ -6,6 +6,7 @@
 #include <QAbstractItemView>
 #include <QModelIndexList>
 #include <QList>
+#include <QStringList>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -87,10 +88,12 @@ MainWindow::~MainWindow()
 void MainWindow::conectar(bool ativado)
 {
     QString ip;
-    unsigned int porta;
+    quint16 porta;
     QStringList ipPorta;
 
     if(ativado){ /* Se o usuário clicou em 'Conectar'. */
+
+        /* Começa a atualizar a lista de clientes. */
 
         timerListaClientes->start(1000);
 
@@ -98,7 +101,6 @@ void MainWindow::conectar(bool ativado)
         ipPorta = ui->lineEditIPPorta->text().split(":");
 
         /* Valida a porta e IP. */
-
         if(ipPorta.size() != 2) {
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Porta ou IP inválidos.");
@@ -176,6 +178,8 @@ void MainWindow::plot(void)
 
     if(conexaoDados->isAtiva()){
 
+        /* Verifica se o usuário selecionou algum cliente na lista. */
+
         indices = ui->listViewClientes->selectionModel()->selectedIndexes();
 
         if(indices.isEmpty())
@@ -191,6 +195,8 @@ void MainWindow::plot(void)
         {
             *clienteSelecionado = cliente;
         }
+
+
 
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Plotando os dados do cliente " + *clienteSelecionado + ".");

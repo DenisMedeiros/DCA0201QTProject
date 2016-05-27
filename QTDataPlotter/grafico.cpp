@@ -89,6 +89,7 @@ void Grafico::paintEvent(QPaintEvent *e)
         painter.drawPoint(xi, yi);
         painter.drawPoint(xf, yf);
 
+
         /* Escreve o valor do dado próximo ao ponto. */
         if(dados->at(i).valor != menorY && dados->at(i).valor != maiorY)
         {
