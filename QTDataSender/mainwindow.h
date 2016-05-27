@@ -109,7 +109,13 @@ public slots:
      */
     void alterarIntervalo(int _intervalo);
 
-
+    /**
+     * @brief Este slot é invocado quando o timer dispara.
+     *
+     * Ele basicamente gera um dado (data/hora e valor) com valor aleatório
+     * definidos pelas faixas e, em seguida, faz seu envio para o servidor.
+     *
+     */
     void enviarDado(void);
 
     /**
@@ -120,7 +126,6 @@ public slots:
      *
      */
     void falhaConexao(void);
-
 
 };
 

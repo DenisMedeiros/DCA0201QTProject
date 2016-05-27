@@ -219,11 +219,9 @@ void MainWindow::falhaConexao(void)
     /* Remove a lista de dados. */
     model->removeRows(0, model->rowCount());
 
-
     ui->pushButtonConectar->setEnabled(true);
     ui->pushButtonConectar->setChecked(false);
     ui->pushButtonConectar->setText("Conectar");
-
 
     ui->statusBar->clearMessage();
     ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
