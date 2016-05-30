@@ -46,7 +46,7 @@ public:
      * @param dado O dado (data/hora e valor) a ser enviado para o servidor.
      *
      */
-    void enviar(const QString &dado) const;
+    void enviar(const QString &dado);
 };
 
 #endif // CONEXAOSENDER_H

@@ -9,13 +9,12 @@ ConexaoSender::~ConexaoSender()
 {
 }
 
-void ConexaoSender::enviar(const QString &dado) const
+void ConexaoSender::enviar(const QString &dado)
 {
     QString comando;
 
     if (isAtiva())
     {
-
         /* Formata o comando e faz seu envio para o servidor. */
 
         comando = "set "+ dado + "\r\n";
@@ -23,10 +22,10 @@ void ConexaoSender::enviar(const QString &dado) const
         socket->write(comando.toStdString().c_str());
         if(!socket->waitForBytesWritten(3000))
         {
-            throw ErroConexao("Erro na conexão: O servidor não aceitou esta requisição.");
+            emit falhaConexao();
         }
     } else {
-        throw ErroConexao("Erro na conexão: O servidor não está mais ativo.");
+        emit falhaConexao();
     }
 
 }

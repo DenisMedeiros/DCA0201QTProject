@@ -221,13 +221,15 @@ void MainWindow::atualizarDados(void)
     QList<int> valores;
     int menorY, maiorY;
 
+
+
     if(conexaoDados->isAtiva())
     {
 
         ultimos20Dados = conexaoDados->getUltimos20Dados(*clienteSelecionado);
 
+
         ui->grafico->setDados(ultimos20Dados);
-        ui->grafico->update();
 
         /* Encontre o menor e maior valor do eixo Y. */
 
@@ -253,6 +255,12 @@ void MainWindow::atualizarDados(void)
 
         ui->grafico->setMenorY(menorY);
         ui->grafico->setMaiorY(maiorY);
+
+        ui->grafico->update();
+    }
+    else
+    {
+        qDebug() << "Conexão inativa...";
     }
 }
 

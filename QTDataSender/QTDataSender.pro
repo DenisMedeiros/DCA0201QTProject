@@ -23,3 +23,6 @@ HEADERS  += mainwindow.h \
     erroconexao.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources.qrc

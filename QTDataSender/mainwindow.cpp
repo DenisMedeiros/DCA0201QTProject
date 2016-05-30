@@ -115,7 +115,6 @@ void MainWindow::conectar(bool ativado)
 
         /* Valida o endereço IP e a porta. */
         if(ipPorta.size() != 2) {
-            ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Porta ou IP inválidos.");
             ui->pushButtonConectar->setChecked(false);
             return;
@@ -134,7 +133,6 @@ void MainWindow::conectar(bool ativado)
             /* Se não ocorreu erro durante a abertura da conexão, então
              * mude os elementos visuais da tela. */
             ui->pushButtonConectar->setText("Desconectar");
-            ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Conectado ao servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
 
@@ -146,7 +144,6 @@ void MainWindow::conectar(bool ativado)
         catch(ErroConexao &erro)
         {
             ui->pushButtonConectar->setChecked(false);
-            ui->statusBar->clearMessage();
             ui->statusBar->showMessage(QString(erro.getMensagem()));
         }
     }
@@ -163,7 +160,6 @@ void MainWindow::conectar(bool ativado)
         ui->pushButtonEnviarDados->setEnabled(false);
         ui->pushButtonEnviarDados->setChecked(false);
 
-        ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Desconectado.");
 
         /* Habilita a alteração dos valores do intervalo. */
@@ -201,16 +197,22 @@ void MainWindow::iniciarEnvioDados(bool ativado)
 
         if(faixaInicioStr.isEmpty() || faixaFimStr.isEmpty())
         {
-            ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Faixa de início ou fim em branco. Digite um número válido.");
-            ui->pushButtonConectar->setChecked(false);
+            ui->pushButtonEnviarDados->setChecked(false);
             return;
         }
 
         faixaInicio = faixaInicioStr.toInt();
         faixaFim = faixaFimStr.toInt();
 
-        ui->statusBar->clearMessage();
+        /* Verifique se as faixas são válidas. */
+        if(faixaInicio >= faixaFim)
+        {
+            ui->statusBar->showMessage("Faixa de início não pode ser maior ou igual que a de fim.");
+            ui->pushButtonEnviarDados->setChecked(false);
+            return;
+        }
+
         ui->statusBar->showMessage("Enviando dados para servidor "
                 + ip + " na porta " + QString::number(porta) + ".");
 
@@ -230,7 +232,6 @@ void MainWindow::iniciarEnvioDados(bool ativado)
         ui->pushButtonEnviarDados->setText("Enviar Dados");
         ui->pushButtonEnviarDados->setChecked(false);
 
-        ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Conectado ao servidor "
                 + ip + " na porta " + QString::number(porta) + ".");
 
@@ -273,6 +274,9 @@ void MainWindow::falhaConexao(void)
     ui->pushButtonConectar->setChecked(false);
     ui->pushButtonConectar->setText("Conectar");
 
-    ui->statusBar->clearMessage();
+    ui->pushButtonEnviarDados->setEnabled(true);
+    ui->pushButtonEnviarDados->setChecked(false);
+    ui->pushButtonEnviarDados->setText("Enviar Dados");
+
     ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
 }
