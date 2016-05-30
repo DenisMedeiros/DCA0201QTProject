@@ -74,6 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->pushButtonEnviarDados->setEnabled(false);
+    ui->pushButtonEnviarDados->setCheckable(true);
 
 
     /* Faz a conexão do sinal e slot de quando o intervalo é alterado. */
@@ -90,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
-    connect(ui->pushButtonEnviarDados, SIGNAL(clicked(bool)),)
+    connect(ui->pushButtonEnviarDados, SIGNAL(clicked(bool)), this, SLOT(iniciarEnvioDados(bool)));
 
 }
 
@@ -105,7 +106,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::conectar(bool ativado)
 {
-    QString faixaInicioStr, faixaFimStr;
     QStringList ipPorta;
 
     if (ativado) /* Se o usuário clicou em 'Conectar'. */
@@ -125,22 +125,6 @@ void MainWindow::conectar(bool ativado)
         porta = ipPorta.at(1).toUInt();
 
         intervalo = ui->horizontalSliderIntervalo->value();
-
-        /* Valida as faixas de valores. */
-
-        faixaInicioStr = ui->lineEditFaixaInicio->text();
-        faixaFimStr = ui->lineEditFaixaFim->text();
-
-        if(faixaInicioStr.isEmpty() || faixaFimStr.isEmpty())
-        {
-            ui->statusBar->clearMessage();
-            ui->statusBar->showMessage("Faixa de início ou fim em branco. Digite um número válido.");
-            ui->pushButtonConectar->setChecked(false);
-            return;
-        }
-
-        faixaInicio = faixaInicioStr.toInt();
-        faixaFim = faixaFimStr.toInt();
 
         /* Abre a conexão e inicia o timer que envia os dados. */
         try
@@ -169,8 +153,16 @@ void MainWindow::conectar(bool ativado)
 
     else /* Se o usuário clicou em 'Desconectar'. */
     {
+        timer->stop();
+        conexao->fechar();
+
         /* Altera os elementos visuais, para o  envio de dados e fecha a coneções. */
         ui->pushButtonConectar->setText("Conectar");
+
+        ui->pushButtonEnviarDados->setText("Enviar Dados");
+        ui->pushButtonEnviarDados->setEnabled(false);
+        ui->pushButtonEnviarDados->setChecked(false);
+
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Desconectado.");
 
@@ -178,7 +170,6 @@ void MainWindow::conectar(bool ativado)
         ui->lineEditFaixaInicio->setEnabled(true);
         ui->lineEditFaixaFim->setEnabled(true);
 
-        conexao->fechar();
     }
 }
 
@@ -197,10 +188,28 @@ void MainWindow::alterarIntervalo(int _intervalo)
 }
 
 void MainWindow::iniciarEnvioDados(bool ativado)
-{
+{ 
+    QString faixaInicioStr, faixaFimStr;
 
     if(ativado)
     {
+
+        /* Valida as faixas de valores. */
+
+        faixaInicioStr = ui->lineEditFaixaInicio->text();
+        faixaFimStr = ui->lineEditFaixaFim->text();
+
+        if(faixaInicioStr.isEmpty() || faixaFimStr.isEmpty())
+        {
+            ui->statusBar->clearMessage();
+            ui->statusBar->showMessage("Faixa de início ou fim em branco. Digite um número válido.");
+            ui->pushButtonConectar->setChecked(false);
+            return;
+        }
+
+        faixaInicio = faixaInicioStr.toInt();
+        faixaFim = faixaFimStr.toInt();
+
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Enviando dados para servidor "
                 + ip + " na porta " + QString::number(porta) + ".");
@@ -216,8 +225,11 @@ void MainWindow::iniciarEnvioDados(bool ativado)
     }
     else
     {
-        /* Altera os elementos visuais, para o  envio de dados e fecha a coneções. */
-        ui->pushButtonConectar->setText("Enviar Dados");
+        /* Altera os elementos visuais, para o  envio de dados e para o timer. */
+
+        ui->pushButtonEnviarDados->setText("Enviar Dados");
+        ui->pushButtonEnviarDados->setChecked(false);
+
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Conectado ao servidor "
                 + ip + " na porta " + QString::number(porta) + ".");
@@ -225,6 +237,7 @@ void MainWindow::iniciarEnvioDados(bool ativado)
         /* Habilita a alteração dos valores do intervalo. */
         ui->lineEditFaixaInicio->setEnabled(true);
         ui->lineEditFaixaFim->setEnabled(true);
+
 
         timer->stop();
 

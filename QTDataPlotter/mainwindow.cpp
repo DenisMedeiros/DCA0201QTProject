@@ -57,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timerDados, SIGNAL(timeout()), this, SLOT(atualizarDados()));
     connect(timerListaClientes, SIGNAL(timeout()), this, SLOT(atualizarListaClientes()));
 
-
     connect(conexaoDados, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
     connect(conexaoListaClientes, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
