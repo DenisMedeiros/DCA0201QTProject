@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>QTDataPlotter</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/imagens/icone</normaloff>:/imagens/icone</iconset>
+  </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
@@ -195,7 +199,7 @@
      <x>0</x>
      <y>0</y>
      <width>654</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -218,7 +222,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
  <slots>
   <slot>conectar()</slot>

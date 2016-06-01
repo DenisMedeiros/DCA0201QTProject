@@ -35,7 +35,7 @@
            <item>
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Endereço IP:Porta</string>
+              <string>Endereço IP:Porta do Servidor</string>
              </property>
             </widget>
            </item>
@@ -76,7 +76,7 @@
            <item>
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Faixa de Valores (início e fim)</string>
+              <string>Faixa de Valores Inteiros (inicial e final)</string>
              </property>
             </widget>
            </item>
@@ -120,7 +120,7 @@
              <item>
               <widget class="QLabel" name="label_3">
                <property name="text">
-                <string>Intervalo</string>
+                <string>Intervalo de Envio</string>
                </property>
               </widget>
              </item>

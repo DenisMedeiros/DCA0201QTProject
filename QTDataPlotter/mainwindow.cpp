@@ -143,6 +143,8 @@ void MainWindow::conectar(bool ativado)
 
     } else { /* Se o usuário clicou em 'Desconectar'. */
 
+        qDebug() << "CLicou em desconect";
+
         conexaoDados->fechar();
         conexaoListaClientes->fechar();
 
@@ -272,6 +274,12 @@ void MainWindow::atualizarListaClientes()
     {
 
         clientesServidor = conexaoListaClientes->getClientes();
+
+        if(clientesServidor.size() == 0)
+        {
+            ui->statusBar->showMessage("Por enquanto nenhum cliente conectou-se ao servidor...");
+            return;
+        }
 
         /* Verifica se é o primeiro preenchimento ou se a lista atualizou. */
         if((ui->listViewClientes->model()->rowCount() == 0) || (*clientes != clientesServidor))

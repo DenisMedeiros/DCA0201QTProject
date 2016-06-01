@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Usa a hora atual como seed para os números aleatórios. */
     qsrand(QDateTime::currentDateTime().toTime_t());
 
-    /* Expressão regular para validar um endereço IP + uma porta. */
+    /* Expressão regular para validar um endereço IP + uma port separados por ":". */
     ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
 
     portRange = "([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|"
@@ -49,7 +49,6 @@ MainWindow::MainWindow(QWidget *parent) :
                      + "\\." + ipRange
                      + "\\." + ipRange
                      + "\\." + ipRange + "\\:" + portRange + "$");
-
 
 
     /* Atribui um validator para o campo IPPorta. */
@@ -68,31 +67,31 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Prepara a lista de dados enviados. */
     model = new QStringListModel(this);
 
-    /* Adiciona o modelo na lista e torne-a não editável. */
+    /* Adiciona o modelo na lista e torna-a não editável. */
     ui->listViewRegistros->setModel(model);
     ui->listViewRegistros->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-
+    /* O botão de envio começa desabilitado até que a conexão seja aberta. */
     ui->pushButtonEnviarDados->setEnabled(false);
     ui->pushButtonEnviarDados->setCheckable(true);
 
-
-    /* Faz a conexão do sinal e slot de quando o intervalo é alterado. */
+    /* Conexão do sinal e slot de quando o intervalo é alterado. */
     connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), this, SLOT(alterarIntervalo(int)));
 
-    /* Faz a conexão do botão 'Conectar' com o slot que abre a conexão com o servidor. */
+    /* Conexão do botão 'Conectar' com o slot que abre a conexão com o servidor. */
     connect(ui->pushButtonConectar, SIGNAL(clicked(bool)), this, SLOT(conectar(bool)));
 
-    /* Faz a conexão do slider de intervalo com o label que exibe o valor atual. */
+    /* Conexão do slider de intervalo com o label que exibe o valor atual. */
     connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), ui->labelValorIntervalo, SLOT(setNum(int)));
 
-    /* Faz a conexão da expiração do timer com o slot que envia o dado para o servidor. */
-    connect(timer, SIGNAL(timeout()), this, SLOT(enviarDado()));
-
+    /* Conexão do sinal de erro na conexão com o slot que faz o seu tratamento. */
     connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
 
+    /* Conexão do botão que inicia o envio de dados e o slot que inicia o timer. */
     connect(ui->pushButtonEnviarDados, SIGNAL(clicked(bool)), this, SLOT(iniciarEnvioDados(bool)));
 
+    /* Conexão da expiração do timer com o slot que envia o dado para o servidor. */
+    connect(timer, SIGNAL(timeout()), this, SLOT(enviarDado()));
 }
 
 MainWindow::~MainWindow()
@@ -108,9 +107,9 @@ void MainWindow::conectar(bool ativado)
 {
     QStringList ipPorta;
 
-    if (ativado) /* Se o usuário clicou em 'Conectar'. */
+    if (ativado) /* O usuário clicou em 'Conectar'. */
     {
-        /* A string está no formato IP:porta e são separados abaixo. */
+        /* A string está no formato "IP:porta" e são separados abaixo. */
         ipPorta = ui->lineEditIPPorta->text().split(":");
 
         /* Valida o endereço IP e a porta. */
@@ -122,17 +121,16 @@ void MainWindow::conectar(bool ativado)
 
         ip = ipPorta.at(0);
         porta = ipPorta.at(1).toUInt();
-
         intervalo = ui->horizontalSliderIntervalo->value();
 
-        /* Abre a conexão e inicia o timer que envia os dados. */
-        try
+        try /* Tenta abrir a conexão. */
         {
             conexao->abrir(ip, porta);
 
             /* Se não ocorreu erro durante a abertura da conexão, então
              * mude os elementos visuais da tela. */
             ui->pushButtonConectar->setText("Desconectar");
+
             ui->statusBar->showMessage("Conectado ao servidor "
                     + ip + " na porta " + QString::number(porta) + ".");
 
@@ -148,12 +146,13 @@ void MainWindow::conectar(bool ativado)
         }
     }
 
-    else /* Se o usuário clicou em 'Desconectar'. */
+    else /* O usuário clicou em 'Desconectar'. */
     {
+        /* Para o envio de dados e fecha a conexão. */
         timer->stop();
         conexao->fechar();
 
-        /* Altera os elementos visuais, para o  envio de dados e fecha a coneções. */
+        /* Altera os elementos visuais, para o  envio de dados e fecha a conexões. */
         ui->pushButtonConectar->setText("Conectar");
 
         ui->pushButtonEnviarDados->setText("Enviar Dados");
@@ -168,7 +167,6 @@ void MainWindow::conectar(bool ativado)
 
     }
 }
-
 
 void MainWindow::alterarIntervalo(int _intervalo)
 {
@@ -187,11 +185,10 @@ void MainWindow::iniciarEnvioDados(bool ativado)
 { 
     QString faixaInicioStr, faixaFimStr;
 
-    if(ativado)
+    if(ativado) /* O usuário clicou para iniciar o envio. */
     {
 
         /* Valida as faixas de valores. */
-
         faixaInicioStr = ui->lineEditFaixaInicio->text();
         faixaFimStr = ui->lineEditFaixaFim->text();
 
@@ -208,7 +205,7 @@ void MainWindow::iniciarEnvioDados(bool ativado)
         /* Verifique se as faixas são válidas. */
         if(faixaInicio >= faixaFim)
         {
-            ui->statusBar->showMessage("Faixa de início não pode ser maior ou igual que a de fim.");
+            ui->statusBar->showMessage("Faixa de início deve ser menor que a de fim.");
             ui->pushButtonEnviarDados->setChecked(false);
             return;
         }
@@ -220,12 +217,14 @@ void MainWindow::iniciarEnvioDados(bool ativado)
         ui->lineEditFaixaInicio->setEnabled(false);
         ui->lineEditFaixaFim->setEnabled(false);
 
+        /* Altera a aparência do botão de envio. */
         ui->pushButtonEnviarDados->setText("Parar");
         ui->pushButtonEnviarDados->setChecked(true);
 
+        /* Inicia o envio periódico de dados. */
         timer->start(intervalo * 1000);
     }
-    else
+    else /* O usuário clicou para parar o envio. */
     {
         /* Altera os elementos visuais, para o  envio de dados e para o timer. */
 
@@ -239,9 +238,8 @@ void MainWindow::iniciarEnvioDados(bool ativado)
         ui->lineEditFaixaInicio->setEnabled(true);
         ui->lineEditFaixaFim->setEnabled(true);
 
-
+        /* Para o envio periódico de dados. */
         timer->stop();
-
     }
 }
 
@@ -251,11 +249,14 @@ void MainWindow::enviarDado(void)
 
     if(conexao->isAtiva())
     {
+
+        /* Gera o dado aleatório, obtém a hora atual e faz o envio para o servidor. */
         dado = QDateTime::currentDateTime().toString(Qt::ISODate)
                 + " " + QString::number(numero_aleatorio(faixaInicio, faixaFim));
 
         conexao->enviar(dado);
 
+        /* Atualiza a lista de dados enviados inserindo o registro. */
         model->insertRows(0, 1);
         model->setData(model->index(0), dado);
     }
@@ -270,6 +271,7 @@ void MainWindow::falhaConexao(void)
     /* Remove a lista de dados. */
     model->removeRows(0, model->rowCount());
 
+    /* Altera a aparência dos botões para o modelo inicial. */
     ui->pushButtonConectar->setEnabled(true);
     ui->pushButtonConectar->setChecked(false);
     ui->pushButtonConectar->setText("Conectar");
