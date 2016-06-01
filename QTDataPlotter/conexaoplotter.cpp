@@ -28,13 +28,13 @@ QStringList ConexaoPlotter::getClientes(void)
 
             if (linha.isEmpty())
             {
-                emit falhaConexao();
+                throw ErroConexao("Erro na conexão: Nenhum cliente conectou-se ao servidor ainda.");
             }
 
             clientes.append(linha);
         }
     } else {
-        emit falhaConexao();
+        throw ErroConexao("Erro na conexão: O servidor parou de responder.");
     }
 
     return clientes;
@@ -84,7 +84,7 @@ QList<Dado> ConexaoPlotter::getTodosDados(QString cliente)
     }
     else
     {
-        emit falhaConexao();
+        throw ErroConexao("Erro na conexão: O servidor parou de responder.");
     }
 
     return dados;
@@ -148,7 +148,7 @@ QList<Dado> ConexaoPlotter::getUltimos20Dados(QString cliente)
     }
     else
     {
-        emit falhaConexao();
+        throw ErroConexao("Erro na conexão: O servidor parou de responder.");
     }
 
     return dados;

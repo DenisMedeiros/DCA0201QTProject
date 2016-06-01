@@ -127,7 +127,7 @@ public slots:
      * Nessa situação, o programa volta ao seu estado inicial e exibe a mensagem de erro.
      *
      */
-    void falhaConexao(void);
+    void falhaConexao(const QString &erro);
 };
 
 #endif // MAINWINDOW_H

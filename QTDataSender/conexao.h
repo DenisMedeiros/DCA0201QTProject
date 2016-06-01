@@ -109,8 +109,10 @@ signals:
      * 'emiteFalhaConexao' e este, finalmente, emite o sinal 'falhaConexao' para ser capturado por outro QObject
      * avisando que ocorreu uma falha na conexão.
      *
+     * @param erro Uma mensagem explicando o erro.
+     *
      */
-    void falhaConexao(void);
+    void falhaConexao(const QString &erro);
 
 public slots:
     /**

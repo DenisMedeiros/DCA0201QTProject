@@ -85,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), ui->labelValorIntervalo, SLOT(setNum(int)));
 
     /* Conexão do sinal de erro na conexão com o slot que faz o seu tratamento. */
-    connect(conexao, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
+    connect(conexao, SIGNAL(falhaConexao(const QString &)), this, SLOT(falhaConexao()));
 
     /* Conexão do botão que inicia o envio de dados e o slot que inicia o timer. */
     connect(ui->pushButtonEnviarDados, SIGNAL(clicked(bool)), this, SLOT(iniciarEnvioDados(bool)));

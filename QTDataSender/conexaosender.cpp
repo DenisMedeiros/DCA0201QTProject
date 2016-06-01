@@ -22,10 +22,10 @@ void ConexaoSender::enviar(const QString &dado)
 
         if(!socket->waitForBytesWritten(3000))
         {
-            emit falhaConexao();
+            throw ErroConexao("Erro na conexão: O servidor parou de responder.");
         }
     } else {
-        emit falhaConexao();
+        throw ErroConexao("Erro na conexão: O servidor parou de responder.");
     }
 
 }

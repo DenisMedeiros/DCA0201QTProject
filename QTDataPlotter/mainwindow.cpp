@@ -57,8 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timerDados, SIGNAL(timeout()), this, SLOT(atualizarDados()));
     connect(timerListaClientes, SIGNAL(timeout()), this, SLOT(atualizarListaClientes()));
 
-    connect(conexaoDados, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
-    connect(conexaoListaClientes, SIGNAL(falhaConexao()), this, SLOT(falhaConexao()));
+    connect(conexaoDados, SIGNAL(falhaConexao(const QString &)), this, SLOT(falhaConexao(const QString &)));
+    connect(conexaoListaClientes, SIGNAL(falhaConexao(const QString &)), this, SLOT(falhaConexao(const QString &)));
 
     ui->pushButtonPlot->setEnabled(false);
 
@@ -117,6 +117,12 @@ void MainWindow::conectar(bool ativado)
 
             /* Verifique se existe algum cliente conectado. */
             atualizarListaClientes();
+
+            if(clientes->size() == 0)
+            {
+                falhaConexao("Erro na conexão: não há nenhum cliente conectado no servidor.");
+                return;
+            }
 
             ui->statusBar->clearMessage();
             ui->statusBar->showMessage("Conectado com sucesso ao servidor "
@@ -195,8 +201,6 @@ void MainWindow::plot(void)
             *clienteSelecionado = cliente;
         }
 
-
-
         ui->statusBar->clearMessage();
         ui->statusBar->showMessage("Plotando os dados do cliente " + *clienteSelecionado + ".");
 
@@ -221,13 +225,18 @@ void MainWindow::atualizarDados(void)
     QList<int> valores;
     int menorY, maiorY;
 
-
-
     if(conexaoDados->isAtiva())
     {
 
-        ultimos20Dados = conexaoDados->getUltimos20Dados(*clienteSelecionado);
-
+        try
+        {
+            ultimos20Dados = conexaoDados->getUltimos20Dados(*clienteSelecionado);
+        }
+        catch(ErroConexao &erro)
+        {
+            falhaConexao(erro.getMensagem());
+            return;
+        }
 
         ui->grafico->setDados(ultimos20Dados);
 
@@ -260,7 +269,8 @@ void MainWindow::atualizarDados(void)
     }
     else
     {
-        qDebug() << "Conexão inativa...";
+        falhaConexao("Erro na conexão: o servidor parou de responder.");
+        return;
     }
 }
 
@@ -270,8 +280,15 @@ void MainWindow::atualizarListaClientes()
 
     if(conexaoListaClientes->isAtiva())
     {
-
-        clientesServidor = conexaoListaClientes->getClientes();
+        try
+        {
+            clientesServidor = conexaoListaClientes->getClientes();
+        }
+        catch(ErroConexao &erro)
+        {
+            falhaConexao(erro.getMensagem());
+            return;
+        }
 
         if(clientesServidor.size() == 0)
         {
@@ -298,7 +315,7 @@ void MainWindow::atualizarListaClientes()
     }
 }
 
-void MainWindow::falhaConexao()
+void MainWindow::falhaConexao(const QString &erro)
 {
 
     timerDados->stop();
@@ -309,6 +326,15 @@ void MainWindow::falhaConexao()
 
     /* Remove a lista de clientes. */
     model->removeRows(0, model->rowCount());
+
+    /* Limpa a lista de clientes e o cliente selecionado. */
+    delete clientes;
+    delete clienteSelecionado;
+
+    clientes = new QStringList();
+    clienteSelecionado = new QString();
+
+    /* Altera o visual dos dados. */
 
     ui->pushButtonConectar->setEnabled(true);
     ui->pushButtonConectar->setChecked(false);
@@ -324,6 +350,6 @@ void MainWindow::falhaConexao()
     ui->labelYFim->hide();
 
     ui->statusBar->clearMessage();
-    ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
+    ui->statusBar->showMessage(erro);
 
 }
