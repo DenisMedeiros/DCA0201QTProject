@@ -143,8 +143,6 @@ void MainWindow::conectar(bool ativado)
 
     } else { /* Se o usuário clicou em 'Desconectar'. */
 
-        qDebug() << "CLicou em desconect";
-
         conexaoDados->fechar();
         conexaoListaClientes->fechar();
 
@@ -302,10 +300,12 @@ void MainWindow::atualizarListaClientes()
 
 void MainWindow::falhaConexao()
 {
-    conexaoDados->fechar();
-    conexaoListaClientes->fechar();
+
     timerDados->stop();
     timerListaClientes->stop();
+
+    conexaoDados->fechar();
+    conexaoListaClientes->fechar();
 
     /* Remove a lista de clientes. */
     model->removeRows(0, model->rowCount());
@@ -313,6 +313,8 @@ void MainWindow::falhaConexao()
     ui->pushButtonConectar->setEnabled(true);
     ui->pushButtonConectar->setChecked(false);
     ui->pushButtonConectar->setText("Conectar");
+
+    ui->pushButtonPlot->setEnabled(false);
 
     /* Esconda o gráfico. */
     ui->grafico->hide();

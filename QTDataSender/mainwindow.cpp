@@ -170,14 +170,11 @@ void MainWindow::conectar(bool ativado)
 
 void MainWindow::alterarIntervalo(int _intervalo)
 {
-    if(conexao->isAtiva())
-    {
-        intervalo = _intervalo;
+    intervalo = _intervalo;
 
-        if(timer->isActive())
-        {
-            timer->setInterval(intervalo * 1000);
-        }
+    if(timer->isActive())
+    {
+        timer->setInterval(intervalo * 1000);
     }
 }
 
@@ -259,6 +256,10 @@ void MainWindow::enviarDado(void)
         /* Atualiza a lista de dados enviados inserindo o registro. */
         model->insertRows(0, 1);
         model->setData(model->index(0), dado);
+    }
+    else
+    {
+        falhaConexao();
     }
 
 }
