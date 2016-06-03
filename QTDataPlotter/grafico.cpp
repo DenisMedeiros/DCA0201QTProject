@@ -103,7 +103,7 @@ void Grafico::paintEvent(QPaintEvent *e)
             }
             else
             {
-                painter.drawText(xf+5, yf+15, QString::number(dados->at(i).valor));
+                painter.drawText(xf+5, yf+10, QString::number(dados->at(i).valor));
             }
         }
 

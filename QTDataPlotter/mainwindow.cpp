@@ -229,7 +229,7 @@ void MainWindow::atualizarDados(void)
     {
         try
         {
-            ultimos20Dados = conexaoDados->getUltimos20Dados(*clienteSelecionado);
+            ultimos20Dados = conexaoDados->getUltimos30Dados(*clienteSelecionado);
         }
         catch(ErroConexao &erro)
         {

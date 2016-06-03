@@ -63,7 +63,7 @@ public:
 
 
     /**
-     * @brief Este método retorna apenas os últimos 20 dados enviados pelo cliente.
+     * @brief Este método retorna apenas os últimos 30 dados enviados pelo cliente.
      *
      * Os dados retornos já estão devidamente tratados e pronto para uso.
      *
@@ -71,7 +71,7 @@ public:
      *
      * @return Lista com os dados enviados por aquele cliente para o servidor.
      */
-    QList<Dado> getUltimos20Dados(QString cliente);
+    QList<Dado> getUltimos30Dados(QString cliente);
 };
 
 #endif // CONEXAOPLOTTER_H
