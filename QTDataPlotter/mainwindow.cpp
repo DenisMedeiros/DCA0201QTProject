@@ -227,7 +227,6 @@ void MainWindow::atualizarDados(void)
 
     if(conexaoDados->isAtiva())
     {
-
         try
         {
             ultimos20Dados = conexaoDados->getUltimos20Dados(*clienteSelecionado);
@@ -269,7 +268,7 @@ void MainWindow::atualizarDados(void)
     }
     else
     {
-        falhaConexao("Erro na conexão: o servidor parou de responder.");
+        falhaConexao("Erro na conexão: O servidor parou de responder.");
         return;
     }
 }
@@ -291,8 +290,7 @@ void MainWindow::atualizarListaClientes()
         }
 
         if(clientesServidor.size() == 0)
-        {
-            ui->statusBar->showMessage("Por enquanto nenhum cliente conectou-se ao servidor...");
+        {          
             return;
         }
 

@@ -62,7 +62,7 @@ void Grafico::paintEvent(QPaintEvent *e)
 
     /* Prepara o brush. */
 
-    brush.setColor(QColor(255, 255, 255));
+    brush.setColor(Qt::white);
     brush.setStyle(Qt::SolidPattern);
     painter.setBrush(brush);
 
@@ -89,7 +89,7 @@ void Grafico::paintEvent(QPaintEvent *e)
         painter.drawPoint(xi, yi);
         painter.drawPoint(xf, yf);
 
-
+        painter.setPen(QPen(Qt::black, 1));
         /* Escreve o valor do dado próximo ao ponto. */
         if(dados->at(i).valor != menorY && dados->at(i).valor != maiorY)
         {
@@ -108,7 +108,6 @@ void Grafico::paintEvent(QPaintEvent *e)
         }
 
          /* Desenha as retas no gráfico. */
-        painter.setPen(QPen(Qt::black, 1));
         painter.drawLine(xi, yi, xf, yf);
 
         /* Atualiza os valores iniciais. */

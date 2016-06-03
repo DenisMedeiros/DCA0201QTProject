@@ -47,5 +47,5 @@ bool Conexao::isAtiva() const
 
 void Conexao::emiteFalhaConexao()
 {
-    emit falhaConexao("Ocorreu um erro na conexão.");
+    emit falhaConexao("Erro na conexão: o servidor parou de responder.");
 }

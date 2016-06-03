@@ -277,9 +277,14 @@ void MainWindow::falhaConexao(void)
     ui->pushButtonConectar->setChecked(false);
     ui->pushButtonConectar->setText("Conectar");
 
-    ui->pushButtonEnviarDados->setEnabled(true);
+    ui->pushButtonEnviarDados->setEnabled(false);
     ui->pushButtonEnviarDados->setChecked(false);
     ui->pushButtonEnviarDados->setText("Enviar Dados");
+
+
+    /* Habilita a alteração dos valores do intervalo. */
+    ui->lineEditFaixaInicio->setEnabled(true);
+    ui->lineEditFaixaFim->setEnabled(true);
 
     ui->statusBar->showMessage("Erro na conexão: O servidor parou de responder.");
 }
