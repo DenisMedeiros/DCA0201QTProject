@@ -297,6 +297,10 @@ void MainWindow::atualizarListaClientes()
         /* Verifica se é o primeiro preenchimento ou se a lista atualizou. */
         if((ui->listViewClientes->model()->rowCount() == 0) || (*clientes != clientesServidor))
         {
+
+            /* Atualiza a lista de clientes localmente. */
+            *clientes = clientesServidor;
+
             /* Limpa a lista e a preenche novamente. */
             model->removeRows(0, model->rowCount());
 
@@ -306,8 +310,6 @@ void MainWindow::atualizarListaClientes()
                 model->setData(model->index(0), cliente);
             }
 
-            /* Atualiza a lista de clientes localmente. */
-            *clientes = clientesServidor;
         }
 
     }

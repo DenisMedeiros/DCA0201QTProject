@@ -16,7 +16,18 @@
 
 int MainWindow::numero_aleatorio(int min, int max)
 {
-    return ((float(rand()) / float(RAND_MAX)) * (max - min + 2)) + min - 1;
+    if(min > 0 && max > 0) /* Se ambos são positivos. */
+    {
+        return ((float(rand()) / float(RAND_MAX)) * (max - min + 1)) + min;
+    }
+    else if (min < 0 && max > 0) /* Menor é negativo e o segundo positivo. */
+    {
+        return ((float(rand()) / float(RAND_MAX)) * (max - min + 2)) + min - 1;
+    }
+    else /* Se ambos são negativos. */
+    {
+        return ((float(rand()) / float(RAND_MAX)) * (max - min + 1)) + min - 1;
+    }
 }
 
 MainWindow::MainWindow(QWidget *parent) :

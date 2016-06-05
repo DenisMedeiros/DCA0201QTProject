@@ -71,7 +71,6 @@ void Grafico::paintEvent(QPaintEvent *e)
     painter.drawRect(0, 0, width(), height());
 
     /* Calcula a proporção do tamanho de cada intervalo no eixo y. */
-
     proporcaoY = height()/((float) (maiorY - menorY));
 
     /* Determina os valores iniciais. */
@@ -90,6 +89,7 @@ void Grafico::paintEvent(QPaintEvent *e)
         painter.drawPoint(xf, yf);
 
         painter.setPen(QPen(Qt::black, 1));
+
         /* Escreve o valor do dado próximo ao ponto. */
         if(dados->at(i).valor != menorY && dados->at(i).valor != maiorY)
         {
@@ -103,11 +103,11 @@ void Grafico::paintEvent(QPaintEvent *e)
             }
             else
             {
-                painter.drawText(xf+5, yf+10, QString::number(dados->at(i).valor));
+                painter.drawText(xf+5, yf+15, QString::number(dados->at(i).valor));
             }
         }
 
-         /* Desenha as retas no gráfico. */
+        /* Desenha as retas no gráfico. */
         painter.drawLine(xi, yi, xf, yf);
 
         /* Atualiza os valores iniciais. */
