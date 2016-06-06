@@ -10,6 +10,8 @@ Grafico::Grafico(QWidget *parent) : QWidget(parent)
     /* Inicializa as variáveis e instancia a lista de dados. */
     menorY = maiorY = 0;
     dados = new QList<Dado>();
+
+
 }
 
 Grafico::~Grafico()
