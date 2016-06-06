@@ -88,9 +88,9 @@ protected:
     /**
      * @brief Este método redesenha o gráfico na tela.
      *
-     * @param e Objeto do evento ocorrido informado pelo sistema.
+     * @param evento Objeto do evento ocorrido informado pelo sistema.
      */
-    void paintEvent(QPaintEvent *e);
+    void paintEvent(QPaintEvent *evento);
 
 signals:
 

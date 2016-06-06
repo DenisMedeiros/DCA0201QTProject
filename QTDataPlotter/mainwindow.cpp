@@ -64,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* Esconde o gráfico e os labels. */
     ui->grafico->hide();
+    ui->labelTituloGrafico->hide();
     ui->labelXInicio->hide();
     ui->labelXFim->hide();
     ui->labelYInicio->hide();
@@ -166,8 +167,9 @@ void MainWindow::conectar(bool ativado)
         ui->pushButtonConectar->setEnabled(true);
         ui->pushButtonConectar->setText("Conectar");
 
-        /* Esconda o gráfico. */
+        /* Esconde o gráfico. */
         ui->grafico->hide();
+        ui->labelTituloGrafico->hide();
         ui->labelXInicio->hide();
         ui->labelXFim->hide();
         ui->labelYInicio->hide();
@@ -342,8 +344,9 @@ void MainWindow::falhaConexao(const QString &erro)
 
     ui->pushButtonPlot->setEnabled(false);
 
-    /* Esconda o gráfico. */
+    /* Esconde o gráfico. */
     ui->grafico->hide();
+    ui->labelTituloGrafico->hide();
     ui->labelXInicio->hide();
     ui->labelXFim->hide();
     ui->labelYInicio->hide();

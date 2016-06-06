@@ -20,7 +20,7 @@
  * @brief Esta estrutura serve para agrupar os dados para facilitar a plotagem
  * em um plano cartesiano.
  *
- * O datetime será tratado como o 'x' e o valor será tratado como o 'y'.
+ * O datetime será tratado como o 'x' e o valor será tratado como o 'y' do gráfico.
  *
  */
 struct Dado {

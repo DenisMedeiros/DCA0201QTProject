@@ -10,8 +10,6 @@ Grafico::Grafico(QWidget *parent) : QWidget(parent)
     /* Inicializa as variáveis e instancia a lista de dados. */
     menorY = maiorY = 0;
     dados = new QList<Dado>();
-
-
 }
 
 Grafico::~Grafico()
@@ -44,7 +42,7 @@ void Grafico::setMaiorY(int _maiorY)
     maiorY = _maiorY;
 }
 
-void Grafico::paintEvent(QPaintEvent *e)
+void Grafico::paintEvent(QPaintEvent *evento)
 {
     QPainter painter(this);
     QBrush brush;
