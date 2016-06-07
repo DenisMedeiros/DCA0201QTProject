@@ -1,0 +1,4 @@
+<map id="conexaoplotter.h" name="conexaoplotter.h">
+<area shape="rect" id="node2" href="$a00008.html" title="Classe responsável pela conexao entre o programa e o servidor remoto. " alt="" coords="237,80,320,107"/>
+<area shape="rect" id="node8" href="$a00011.html" title="Exceção que é gerada quando este programa não consegue conectar ao servidor. " alt="" coords="404,155,508,181"/>
+</map>

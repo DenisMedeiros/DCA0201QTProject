@@ -1,0 +1,8 @@
+/**
+\mainpage Página inicial do QTDataPlotter
+
+O objetivo deste programa é plotar dados dos clientes enviados para o servidor.
+O plot é feito um cliente por vez e o gráfico é atualizado a cada 1 segundo.
+Caso a conexão com o servidor caia, uma mensagem de erro será informada ao usuário.
+
+*/

@@ -1,0 +1,8 @@
+/**
+\mainpage Página inicial do QTDataSender
+
+O objetivo deste programa é enviar dados para o servidor.
+Os dados são gerados de forma aleatória, entre um intervalo definido pelo usuário,
+e o período de envio é controlado por um slider.
+Caso a conexão com o servidor caia, será informada uma mensagem de erro.
+*/

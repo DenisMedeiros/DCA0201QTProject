@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>QTDataPlotter: Código-Fonte de erroconexao.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">QTDataPlotter
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Arquivos</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">erroconexao.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00011.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifndef ERROCONEXAO_H</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define ERROCONEXAO_H</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a00004.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00004.html">ErroConexao</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a00004.html#a2bd59cfcced50872415107f56261bf62">   25</a></span>&#160;  QString <a class="code" href="a00004.html#a2bd59cfcced50872415107f56261bf62">mensagem</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00004.html#a9f7811725963ce40286548c1a4617d9d">   35</a></span>&#160;  <a class="code" href="a00004.html#a9f7811725963ce40286548c1a4617d9d">ErroConexao</a>(QString _mensagem = <span class="stringliteral">&quot;Não foi possível se conectar ao servidor.&quot;</span>) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      mensagem = _mensagem;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a00004.html#ad441a74bb54b3a058157a2b3a743e52f">   44</a></span>&#160;  QString <a class="code" href="a00004.html#ad441a74bb54b3a058157a2b3a743e52f">getMensagem</a>(<span class="keywordtype">void</span>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="a00004.html#a2bd59cfcced50872415107f56261bf62">mensagem</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif // ERROCONEXAO_H</span></div>
+<div class="ttc" id="a00004_html_ad441a74bb54b3a058157a2b3a743e52f"><div class="ttname"><a href="a00004.html#ad441a74bb54b3a058157a2b3a743e52f">ErroConexao::getMensagem</a></div><div class="ttdeci">QString getMensagem(void) const </div><div class="ttdoc">Este método retorna a mensagem de erro. </div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00044">erroconexao.h:44</a></div></div>
+<div class="ttc" id="a00004_html_a9f7811725963ce40286548c1a4617d9d"><div class="ttname"><a href="a00004.html#a9f7811725963ce40286548c1a4617d9d">ErroConexao::ErroConexao</a></div><div class="ttdeci">ErroConexao(QString _mensagem=&quot;Não foi possível se conectar ao servidor.&quot;)</div><div class="ttdoc">Este é o construtor padrão desta classe. </div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00035">erroconexao.h:35</a></div></div>
+<div class="ttc" id="a00004_html_a2bd59cfcced50872415107f56261bf62"><div class="ttname"><a href="a00004.html#a2bd59cfcced50872415107f56261bf62">ErroConexao::mensagem</a></div><div class="ttdeci">QString mensagem</div><div class="ttdoc">Mensagem de erro informada pelo usuário. </div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00025">erroconexao.h:25</a></div></div>
+<div class="ttc" id="a00004_html"><div class="ttname"><a href="a00004.html">ErroConexao</a></div><div class="ttdoc">Esta é exceção que é gerada quando este programa não consegue conectar ao servidor via socket...</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00019">erroconexao.h:19</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

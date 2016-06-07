@@ -1,0 +1,5 @@
+<map id="mainwindow.h" name="mainwindow.h">
+<area shape="rect" id="node6" href="$a00010.html" title="Classe responsável pela conexao entre o programa e o servidor remoto, com funções mais específicas..." alt="" coords="527,80,646,107"/>
+<area shape="rect" id="node13" href="$a00011.html" title="Exceção que é gerada quando este programa não consegue conectar ao servidor. " alt="" coords="825,229,929,256"/>
+<area shape="rect" id="node7" href="$a00008.html" title="Classe responsável pela conexao entre o programa e o servidor remoto. " alt="" coords="555,155,637,181"/>
+</map>

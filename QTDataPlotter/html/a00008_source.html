@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>QTDataPlotter: Código-Fonte de conexao.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">QTDataPlotter
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Arquivos</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">conexao.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00008.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifndef CONEXAO_H</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define CONEXAO_H</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;QTcpSocket&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;QList&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;QDateTime&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00011.html">erroconexao.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a00003.html">   26</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a00003.html">Dado</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a00003.html#a68692ddfae5f82e2e3bb8770a9fcc59b">   27</a></span>&#160;    QDateTime <a class="code" href="a00003.html#a68692ddfae5f82e2e3bb8770a9fcc59b">datetime</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a00003.html#aa2915bc0000cd15e8c1527b3750eaf6c">   28</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="a00003.html#aa2915bc0000cd15e8c1527b3750eaf6c">valor</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a00001.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00001.html">Conexao</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a00001.html#a940903a56a18fd4d30aec950431f18d5">   45</a></span>&#160;    QTcpSocket *<a class="code" href="a00001.html#a940903a56a18fd4d30aec950431f18d5">socket</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="a00001.html#abbc7bc621739afc0364615ae52ba941f">Conexao</a>(QObject *parent = 0);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a00001.html#ab07382030d3b95cc02fc883c93462e04">~Conexao</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a00001.html#a4702b19df040e172a6ab2355d049550e">abrir</a>(<span class="keyword">const</span> QString &amp;ip, quint16 porta);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a00001.html#acb3db4eb518a2772a837b5bbe4e8b304">fechar</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a00001.html#af9cc3d24c95e053d5ea1e068649d3f6e">isAtiva</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;signals:</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a00001.html#aa6f059a7b09ab4c46a6b903f5dd4f351">falhaConexao</a>(<span class="keyword">const</span> QString &amp;erro);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a00001.html#aac0827a7e0cf57069ae30e94872ca2b0">emiteFalhaConexao</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif // CONEXAO_H</span></div>
+<div class="ttc" id="a00001_html_aac0827a7e0cf57069ae30e94872ca2b0"><div class="ttname"><a href="a00001.html#aac0827a7e0cf57069ae30e94872ca2b0">Conexao::emiteFalhaConexao</a></div><div class="ttdeci">void emiteFalhaConexao(void)</div><div class="ttdoc">Este slot detecta quando o socket perde a conexão com o servidor remoto. </div><div class="ttdef"><b>Definition:</b> <a href="a00007_source.html#l00048">conexao.cpp:48</a></div></div>
+<div class="ttc" id="a00001_html_a940903a56a18fd4d30aec950431f18d5"><div class="ttname"><a href="a00001.html#a940903a56a18fd4d30aec950431f18d5">Conexao::socket</a></div><div class="ttdeci">QTcpSocket * socket</div><div class="ttdoc">Socket utilizado na comunicação. </div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00045">conexao.h:45</a></div></div>
+<div class="ttc" id="a00001_html_abbc7bc621739afc0364615ae52ba941f"><div class="ttname"><a href="a00001.html#abbc7bc621739afc0364615ae52ba941f">Conexao::Conexao</a></div><div class="ttdeci">Conexao(QObject *parent=0)</div><div class="ttdoc">Este é o construtor padrão desta classe. </div><div class="ttdef"><b>Definition:</b> <a href="a00007_source.html#l00003">conexao.cpp:3</a></div></div>
+<div class="ttc" id="a00001_html_aa6f059a7b09ab4c46a6b903f5dd4f351"><div class="ttname"><a href="a00001.html#aa6f059a7b09ab4c46a6b903f5dd4f351">Conexao::falhaConexao</a></div><div class="ttdeci">void falhaConexao(const QString &amp;erro)</div><div class="ttdoc">Este sinal é emitido quando um erro ocorre com socket de forma assíncrona. </div></div>
+<div class="ttc" id="a00001_html_acb3db4eb518a2772a837b5bbe4e8b304"><div class="ttname"><a href="a00001.html#acb3db4eb518a2772a837b5bbe4e8b304">Conexao::fechar</a></div><div class="ttdeci">void fechar(void)</div><div class="ttdoc">Este método fecha a conexão com o servidor removo. </div><div class="ttdef"><b>Definition:</b> <a href="a00007_source.html#l00033">conexao.cpp:33</a></div></div>
+<div class="ttc" id="a00003_html"><div class="ttname"><a href="a00003.html">Dado</a></div><div class="ttdoc">Esta estrutura serve para agrupar os dados para facilitar a plotagem em um plano cartesiano. </div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00026">conexao.h:26</a></div></div>
+<div class="ttc" id="a00001_html"><div class="ttname"><a href="a00001.html">Conexao</a></div><div class="ttdoc">Esta é a classe responsável pela conexão entre o cliente e o servidor remoto. </div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00039">conexao.h:39</a></div></div>
+<div class="ttc" id="a00003_html_a68692ddfae5f82e2e3bb8770a9fcc59b"><div class="ttname"><a href="a00003.html#a68692ddfae5f82e2e3bb8770a9fcc59b">Dado::datetime</a></div><div class="ttdeci">QDateTime datetime</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00027">conexao.h:27</a></div></div>
+<div class="ttc" id="a00001_html_a4702b19df040e172a6ab2355d049550e"><div class="ttname"><a href="a00001.html#a4702b19df040e172a6ab2355d049550e">Conexao::abrir</a></div><div class="ttdeci">void abrir(const QString &amp;ip, quint16 porta)</div><div class="ttdoc">Este método abre a conexão com o servidor removo. </div><div class="ttdef"><b>Definition:</b> <a href="a00007_source.html#l00021">conexao.cpp:21</a></div></div>
+<div class="ttc" id="a00001_html_ab07382030d3b95cc02fc883c93462e04"><div class="ttname"><a href="a00001.html#ab07382030d3b95cc02fc883c93462e04">Conexao::~Conexao</a></div><div class="ttdeci">~Conexao(void)</div><div class="ttdoc">Este é o destrutor padrão desta classe. </div><div class="ttdef"><b>Definition:</b> <a href="a00007_source.html#l00010">conexao.cpp:10</a></div></div>
+<div class="ttc" id="a00003_html_aa2915bc0000cd15e8c1527b3750eaf6c"><div class="ttname"><a href="a00003.html#aa2915bc0000cd15e8c1527b3750eaf6c">Dado::valor</a></div><div class="ttdeci">int valor</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00028">conexao.h:28</a></div></div>
+<div class="ttc" id="a00001_html_af9cc3d24c95e053d5ea1e068649d3f6e"><div class="ttname"><a href="a00001.html#af9cc3d24c95e053d5ea1e068649d3f6e">Conexao::isAtiva</a></div><div class="ttdeci">bool isAtiva(void) const </div><div class="ttdoc">Este método checa se a conexão está ativa. </div><div class="ttdef"><b>Definition:</b> <a href="a00007_source.html#l00041">conexao.cpp:41</a></div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">erroconexao.h</a></div><div class="ttdoc">Exceção que é gerada quando este programa não consegue conectar ao servidor. </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>
