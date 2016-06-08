@@ -123,9 +123,6 @@ Métodos Públicos</h2></td></tr>
 <tr class="memitem:a6e14f439b0b4021117923d7a1859b455"><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#a6e14f439b0b4021117923d7a1859b455">getClientes</a> (void)</td></tr>
 <tr class="memdesc:a6e14f439b0b4021117923d7a1859b455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este método retorna a lista dos clientes conectados ao servidor.  <a href="#a6e14f439b0b4021117923d7a1859b455">Mais...</a><br /></td></tr>
 <tr class="separator:a6e14f439b0b4021117923d7a1859b455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64d6279e44720f9d1bb9157a15d9a773"><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="a00004.html">Dado</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#a64d6279e44720f9d1bb9157a15d9a773">getTodosDados</a> (QString cliente)</td></tr>
-<tr class="memdesc:a64d6279e44720f9d1bb9157a15d9a773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este método retorna todos os dados referentes ao cliente.  <a href="#a64d6279e44720f9d1bb9157a15d9a773">Mais...</a><br /></td></tr>
-<tr class="separator:a64d6279e44720f9d1bb9157a15d9a773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10f5f10720574cc76999a893d5327271"><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="a00004.html">Dado</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#a10f5f10720574cc76999a893d5327271">getUltimos30Dados</a> (QString cliente)</td></tr>
 <tr class="memdesc:a10f5f10720574cc76999a893d5327271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este método retorna apenas os últimos 30 dados enviados pelo cliente.  <a href="#a10f5f10720574cc76999a893d5327271">Mais...</a><br /></td></tr>
 <tr class="separator:a10f5f10720574cc76999a893d5327271"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,7 +202,7 @@ Outros membros herdados</h2></td></tr>
 <p>Este é o destrutor padrão desta classe. </p>
 <p>Ele não faz nenhuma operação relevante. </p>
 
-<p>Definição na linha <a class="el" href="a00010_source.html#l00007">7</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00010_source.html#l00008">8</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
 
 </div>
 </div>
@@ -227,41 +224,11 @@ Outros membros herdados</h2></td></tr>
 <p>Este método retorna a lista dos clientes conectados ao servidor. </p>
 <dl class="section return"><dt>Retorna</dt><dd>Lista de clientes conectados ao servidor. </dd></dl>
 
-<p>Definição na linha <a class="el" href="a00010_source.html#l00011">11</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00010_source.html#l00013">13</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00008_source.html#l00041">Conexao::isAtiva()</a> e <a class="el" href="a00009_source.html#l00045">Conexao::socket</a>.</p>
+<p>Referências <a class="el" href="a00008_source.html#l00042">Conexao::isAtiva()</a> e <a class="el" href="a00009_source.html#l00045">Conexao::socket</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00294">MainWindow::atualizarListaClientes()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a64d6279e44720f9d1bb9157a15d9a773"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QList&lt; <a class="el" href="a00004.html">Dado</a> &gt; ConexaoPlotter::getTodosDados </td>
-          <td>(</td>
-          <td class="paramtype">QString&#160;</td>
-          <td class="paramname"><em>cliente</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Este método retorna todos os dados referentes ao cliente. </p>
-<p>Os dados retornos já estão devidamente tratados e pronto para uso.</p>
-<dl class="params"><dt>Parâmetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cliente</td><td>IP do cliente que se deseja obter os dados enviados.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Retorna</dt><dd>Lista com os dados enviados por aquele cliente para o servidor. </dd></dl>
-
-<p>Definição na linha <a class="el" href="a00010_source.html#l00043">43</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
-
-<p>Referências <a class="el" href="a00009_source.html#l00027">Dado::datetime</a>, <a class="el" href="a00008_source.html#l00041">Conexao::isAtiva()</a>, <a class="el" href="a00009_source.html#l00045">Conexao::socket</a> e <a class="el" href="a00009_source.html#l00028">Dado::valor</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00303">MainWindow::atualizarListaClientes()</a>.</p>
 
 </div>
 </div>
@@ -289,11 +256,11 @@ Outros membros herdados</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Lista com os dados enviados por aquele cliente para o servidor. </dd></dl>
 
-<p>Definição na linha <a class="el" href="a00010_source.html#l00093">93</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00010_source.html#l00045">45</a> do arquivo <a class="el" href="a00010_source.html">conexaoplotter.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00009_source.html#l00027">Dado::datetime</a>, <a class="el" href="a00008_source.html#l00041">Conexao::isAtiva()</a>, <a class="el" href="a00009_source.html#l00045">Conexao::socket</a> e <a class="el" href="a00009_source.html#l00028">Dado::valor</a>.</p>
+<p>Referências <a class="el" href="a00009_source.html#l00027">Dado::datetime</a>, <a class="el" href="a00008_source.html#l00042">Conexao::isAtiva()</a>, <a class="el" href="a00009_source.html#l00045">Conexao::socket</a> e <a class="el" href="a00009_source.html#l00028">Dado::valor</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00238">MainWindow::atualizarDados()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00242">MainWindow::atualizarDados()</a>.</p>
 
 </div>
 </div>

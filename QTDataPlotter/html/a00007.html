@@ -213,7 +213,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00017_source.html#l00011">11</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00017_source.html#l00184">alterarIntervalo()</a>, <a class="el" href="a00017_source.html#l00238">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00018_source.html#l00067">intervalo</a>, <a class="el" href="a00018_source.html#l00055">ipPortaValidator</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00017_source.html#l00194">plot()</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
+<p>Referências <a class="el" href="a00017_source.html#l00188">alterarIntervalo()</a>, <a class="el" href="a00017_source.html#l00242">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00018_source.html#l00067">intervalo</a>, <a class="el" href="a00018_source.html#l00055">ipPortaValidator</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00017_source.html#l00198">plot()</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
 
 </div>
 </div>
@@ -235,7 +235,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00017_source.html#l00079">79</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00018_source.html#l00055">ipPortaValidator</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
+<p>Referências <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00018_source.html#l00055">ipPortaValidator</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
 
 </div>
 </div>
@@ -265,7 +265,7 @@ Atributos Privados</h2></td></tr>
 <p>Este slot é responsável por alterar o intervalo de tempo da atualização do gráfico. </p>
 <p>Ele é ativado quando o HorizontalSlider do intervalo tem seu valor mudado e, com isso, ele para e reinicia o timer o novo valor estabelecido. </p>
 
-<p>Definição na linha <a class="el" href="a00017_source.html#l00184">184</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00017_source.html#l00188">188</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
 <p>Referências <a class="el" href="a00018_source.html#l00067">intervalo</a> e <a class="el" href="a00018_source.html#l00043">timerDados</a>.</p>
 
@@ -298,11 +298,11 @@ Atributos Privados</h2></td></tr>
 <p>Este slot é invocado quando o timer de dados expira. </p>
 <p>Ele solicita ao servidor a lista mais recente de dados e repassa-os para o gráfico. Além disso, ele também reorganiza os labels dos eixos do gráfico. </p>
 
-<p>Definição na linha <a class="el" href="a00017_source.html#l00238">238</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00017_source.html#l00242">242</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00012_source.html#l00044">ErroConexao::getMensagem()</a>, <a class="el" href="a00010_source.html#l00093">ConexaoPlotter::getUltimos30Dados()</a>, <a class="el" href="a00008_source.html#l00041">Conexao::isAtiva()</a>, <a class="el" href="a00018_source.html#l00040">ui</a> e <a class="el" href="a00009_source.html#l00028">Dado::valor</a>.</p>
+<p>Referências <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00012_source.html#l00044">ErroConexao::getMensagem()</a>, <a class="el" href="a00010_source.html#l00045">ConexaoPlotter::getUltimos30Dados()</a>, <a class="el" href="a00008_source.html#l00042">Conexao::isAtiva()</a>, <a class="el" href="a00018_source.html#l00040">ui</a> e <a class="el" href="a00009_source.html#l00028">Dado::valor</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00194">plot()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00198">plot()</a>.</p>
 
 </div>
 </div>
@@ -331,11 +331,11 @@ Atributos Privados</h2></td></tr>
 <p>Este slot é invocado quando o timer da lista de clientes expira. </p>
 <p>Ele solicita ao servidor a lista mais recente dos clientes conectados e atualiza a lista lateral da janela principal. </p>
 
-<p>Definição na linha <a class="el" href="a00017_source.html#l00294">294</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00017_source.html#l00303">303</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00010_source.html#l00011">ConexaoPlotter::getClientes()</a>, <a class="el" href="a00012_source.html#l00044">ErroConexao::getMensagem()</a>, <a class="el" href="a00008_source.html#l00041">Conexao::isAtiva()</a>, <a class="el" href="a00018_source.html#l00058">model</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
+<p>Referências <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00010_source.html#l00013">ConexaoPlotter::getClientes()</a>, <a class="el" href="a00012_source.html#l00044">ErroConexao::getMensagem()</a>, <a class="el" href="a00008_source.html#l00042">Conexao::isAtiva()</a>, <a class="el" href="a00018_source.html#l00058">model</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00092">conectar()</a> e <a class="el" href="a00017_source.html#l00011">MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00096">conectar()</a> e <a class="el" href="a00017_source.html#l00011">MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -370,9 +370,9 @@ Atributos Privados</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definição na linha <a class="el" href="a00017_source.html#l00092">92</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00017_source.html#l00096">96</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00008_source.html#l00021">Conexao::abrir()</a>, <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00008_source.html#l00033">Conexao::fechar()</a>, <a class="el" href="a00012_source.html#l00044">ErroConexao::getMensagem()</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
+<p>Referências <a class="el" href="a00008_source.html#l00022">Conexao::abrir()</a>, <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00008_source.html#l00034">Conexao::fechar()</a>, <a class="el" href="a00012_source.html#l00044">ErroConexao::getMensagem()</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
 
 <p>Referenciado por <a class="el" href="a00017_source.html#l00011">MainWindow()</a>.</p>
 
@@ -403,11 +403,11 @@ Atributos Privados</h2></td></tr>
 <p>Este slot é invocado quando ocorre um erro com a conexão. </p>
 <p>Quando ocorre algum erro na conexão, ela envia um signal para a janela principal. Nessa situação, o programa volta ao seu estado inicial e exibe a mensagem de erro. </p>
 
-<p>Definição na linha <a class="el" href="a00017_source.html#l00336">336</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00017_source.html#l00345">345</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00008_source.html#l00033">Conexao::fechar()</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
+<p>Referências <a class="el" href="a00018_source.html#l00049">clientes</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00064">conexaoListaClientes</a>, <a class="el" href="a00008_source.html#l00034">Conexao::fechar()</a>, <a class="el" href="a00018_source.html#l00058">model</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a>, <a class="el" href="a00018_source.html#l00046">timerListaClientes</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00238">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a> e <a class="el" href="a00017_source.html#l00011">MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00242">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -436,9 +436,9 @@ Atributos Privados</h2></td></tr>
 <p>Este slot é invocado quando o botão de plot é clicado e inicia a plotagem dos dados. </p>
 <p>Ele também inicia o timer responsável por atualizar a lista de dados do gráfico para o cliente selecionado. </p>
 
-<p>Definição na linha <a class="el" href="a00017_source.html#l00194">194</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00017_source.html#l00198">198</a> do arquivo <a class="el" href="a00017_source.html">mainwindow.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00017_source.html#l00238">atualizarDados()</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00067">intervalo</a>, <a class="el" href="a00008_source.html#l00041">Conexao::isAtiva()</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
+<p>Referências <a class="el" href="a00017_source.html#l00242">atualizarDados()</a>, <a class="el" href="a00018_source.html#l00052">clienteSelecionado</a>, <a class="el" href="a00018_source.html#l00061">conexaoDados</a>, <a class="el" href="a00018_source.html#l00067">intervalo</a>, <a class="el" href="a00008_source.html#l00042">Conexao::isAtiva()</a>, <a class="el" href="a00018_source.html#l00043">timerDados</a> e <a class="el" href="a00018_source.html#l00040">ui</a>.</p>
 
 <p>Referenciado por <a class="el" href="a00017_source.html#l00011">MainWindow()</a>.</p>
 
@@ -467,7 +467,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00049">49</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -493,7 +493,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00052">52</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00238">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00194">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00242">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00198">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -519,7 +519,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00061">61</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00238">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00194">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00242">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00198">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -545,7 +545,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00064">64</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -571,7 +571,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00067">67</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00184">alterarIntervalo()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00194">plot()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00188">alterarIntervalo()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00198">plot()</a>.</p>
 
 </div>
 </div>
@@ -623,7 +623,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00058">58</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -649,7 +649,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00043">43</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00184">alterarIntervalo()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00194">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00188">alterarIntervalo()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00198">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -675,7 +675,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00046">46</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -701,7 +701,7 @@ Atributos Privados</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00018_source.html#l00040">40</a> do arquivo <a class="el" href="a00018_source.html">mainwindow.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00238">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00294">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00092">conectar()</a>, <a class="el" href="a00017_source.html#l00336">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00194">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00242">atualizarDados()</a>, <a class="el" href="a00017_source.html#l00303">atualizarListaClientes()</a>, <a class="el" href="a00017_source.html#l00096">conectar()</a>, <a class="el" href="a00017_source.html#l00345">falhaConexao()</a>, <a class="el" href="a00017_source.html#l00011">MainWindow()</a>, <a class="el" href="a00017_source.html#l00198">plot()</a> e <a class="el" href="a00017_source.html#l00079">~MainWindow()</a>.</p>
 
 </div>
 </div>

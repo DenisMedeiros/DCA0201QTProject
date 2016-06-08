@@ -181,7 +181,7 @@ Atributos Protegidos</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00008_source.html#l00003">3</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
 
-<p>Referências <a class="el" href="a00008_source.html#l00048">emiteFalhaConexao()</a> e <a class="el" href="a00009_source.html#l00045">socket</a>.</p>
+<p>Referências <a class="el" href="a00008_source.html#l00049">emiteFalhaConexao()</a> e <a class="el" href="a00009_source.html#l00045">socket</a>.</p>
 
 </div>
 </div>
@@ -202,7 +202,7 @@ Atributos Protegidos</h2></td></tr>
 <p>Este é o destrutor padrão desta classe. </p>
 <p>Ele checa se o socket ainda estão ativo e, após isso, libera a memória alocada por esses objetos. </p>
 
-<p>Definição na linha <a class="el" href="a00008_source.html#l00010">10</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00008_source.html#l00011">11</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
 
 <p>Referências <a class="el" href="a00009_source.html#l00045">socket</a>.</p>
 
@@ -249,11 +249,11 @@ Atributos Protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definição na linha <a class="el" href="a00008_source.html#l00021">21</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00008_source.html#l00022">22</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
 
 <p>Referências <a class="el" href="a00009_source.html#l00045">socket</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00092">MainWindow::conectar()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00096">MainWindow::conectar()</a>.</p>
 
 </div>
 </div>
@@ -282,7 +282,7 @@ Atributos Protegidos</h2></td></tr>
 <p>Este slot detecta quando o socket perde a conexão com o servidor remoto. </p>
 <p>Em sincronia com o sinal 'falhaConexao', este socket emite aquele sinal para avisar outros QObjects que ocorreu um erro na comunicação com o servidor. </p>
 
-<p>Definição na linha <a class="el" href="a00008_source.html#l00048">48</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00008_source.html#l00049">49</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
 
 <p>Referências <a class="el" href="a00002.html#aa6f059a7b09ab4c46a6b903f5dd4f351">falhaConexao()</a>.</p>
 
@@ -322,7 +322,7 @@ Atributos Protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Referenciado por <a class="el" href="a00008_source.html#l00048">emiteFalhaConexao()</a>.</p>
+<p>Referenciado por <a class="el" href="a00008_source.html#l00049">emiteFalhaConexao()</a>.</p>
 
 </div>
 </div>
@@ -343,11 +343,11 @@ Atributos Protegidos</h2></td></tr>
 <p>Este método fecha a conexão com o servidor removo. </p>
 <p>Ele fecha a conexão com o servidor remoto, parando o timer e fechando o socket de comunicação. </p>
 
-<p>Definição na linha <a class="el" href="a00008_source.html#l00033">33</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00008_source.html#l00034">34</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
 
 <p>Referências <a class="el" href="a00009_source.html#l00045">socket</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00092">MainWindow::conectar()</a> e <a class="el" href="a00017_source.html#l00336">MainWindow::falhaConexao()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00096">MainWindow::conectar()</a> e <a class="el" href="a00017_source.html#l00345">MainWindow::falhaConexao()</a>.</p>
 
 </div>
 </div>
@@ -369,11 +369,11 @@ Atributos Protegidos</h2></td></tr>
 <p>Ele checa se a conexão continua ativada verificando se o socket de comunicação continua aberto com o servidor remoto, além de verificar o status atual da conexão.</p>
 <dl class="section return"><dt>Retorna</dt><dd>true Se o socket estiver aberto; false Se o socket estiver fechado. </dd></dl>
 
-<p>Definição na linha <a class="el" href="a00008_source.html#l00041">41</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
+<p>Definição na linha <a class="el" href="a00008_source.html#l00042">42</a> do arquivo <a class="el" href="a00008_source.html">conexao.cpp</a>.</p>
 
 <p>Referências <a class="el" href="a00009_source.html#l00045">socket</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00017_source.html#l00238">MainWindow::atualizarDados()</a>, <a class="el" href="a00017_source.html#l00294">MainWindow::atualizarListaClientes()</a>, <a class="el" href="a00010_source.html#l00011">ConexaoPlotter::getClientes()</a>, <a class="el" href="a00010_source.html#l00043">ConexaoPlotter::getTodosDados()</a>, <a class="el" href="a00010_source.html#l00093">ConexaoPlotter::getUltimos30Dados()</a> e <a class="el" href="a00017_source.html#l00194">MainWindow::plot()</a>.</p>
+<p>Referenciado por <a class="el" href="a00017_source.html#l00242">MainWindow::atualizarDados()</a>, <a class="el" href="a00017_source.html#l00303">MainWindow::atualizarListaClientes()</a>, <a class="el" href="a00010_source.html#l00013">ConexaoPlotter::getClientes()</a>, <a class="el" href="a00010_source.html#l00045">ConexaoPlotter::getUltimos30Dados()</a> e <a class="el" href="a00017_source.html#l00198">MainWindow::plot()</a>.</p>
 
 </div>
 </div>
@@ -400,7 +400,7 @@ Atributos Protegidos</h2></td></tr>
 
 <p>Definição na linha <a class="el" href="a00009_source.html#l00045">45</a> do arquivo <a class="el" href="a00009_source.html">conexao.h</a>.</p>
 
-<p>Referenciado por <a class="el" href="a00008_source.html#l00021">abrir()</a>, <a class="el" href="a00008_source.html#l00003">Conexao()</a>, <a class="el" href="a00008_source.html#l00033">fechar()</a>, <a class="el" href="a00010_source.html#l00011">ConexaoPlotter::getClientes()</a>, <a class="el" href="a00010_source.html#l00043">ConexaoPlotter::getTodosDados()</a>, <a class="el" href="a00010_source.html#l00093">ConexaoPlotter::getUltimos30Dados()</a>, <a class="el" href="a00008_source.html#l00041">isAtiva()</a> e <a class="el" href="a00008_source.html#l00010">~Conexao()</a>.</p>
+<p>Referenciado por <a class="el" href="a00008_source.html#l00022">abrir()</a>, <a class="el" href="a00008_source.html#l00003">Conexao()</a>, <a class="el" href="a00008_source.html#l00034">fechar()</a>, <a class="el" href="a00010_source.html#l00013">ConexaoPlotter::getClientes()</a>, <a class="el" href="a00010_source.html#l00045">ConexaoPlotter::getUltimos30Dados()</a>, <a class="el" href="a00008_source.html#l00042">isAtiva()</a> e <a class="el" href="a00008_source.html#l00011">~Conexao()</a>.</p>
 
 </div>
 </div>
