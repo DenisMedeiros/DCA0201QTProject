@@ -51,18 +51,6 @@ public:
     QStringList getClientes(void);
 
     /**
-     * @brief Este método retorna todos os dados referentes ao cliente.
-     *
-     * Os dados retornos já estão devidamente tratados e pronto para uso.
-     *
-     * @param cliente IP do cliente que se deseja obter os dados enviados.
-     *
-     * @return Lista com os dados enviados por aquele cliente para o servidor.
-     */
-    QList<Dado> getTodosDados(QString cliente);
-
-
-    /**
      * @brief Este método retorna apenas os últimos 30 dados enviados pelo cliente.
      *
      * Os dados retornos já estão devidamente tratados e pronto para uso.

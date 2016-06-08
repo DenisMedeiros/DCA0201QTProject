@@ -4,6 +4,7 @@ Conexao::Conexao(QObject *parent) : QObject(parent)
 {
     /* Cria o socket e faz a conexão do seu sinal de 'disconnect' com o slot especificado. */
     socket = new QTcpSocket();
+    socket->setSocketOption(QAbstractSocket::LowDelayOption, 1);
     connect(socket, SIGNAL(disconnected()), this, SLOT(emiteFalhaConexao()));
 }
 

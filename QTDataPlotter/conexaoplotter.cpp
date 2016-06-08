@@ -2,10 +2,12 @@
 
 ConexaoPlotter::ConexaoPlotter(void) : Conexao()
 {
+
 }
 
 ConexaoPlotter::~ConexaoPlotter()
 {
+
 }
 
 QStringList ConexaoPlotter::getClientes(void)
@@ -40,56 +42,6 @@ QStringList ConexaoPlotter::getClientes(void)
     return clientes;
 }
 
-QList<Dado> ConexaoPlotter::getTodosDados(QString cliente)
-{
-
-    QList<Dado> dados;
-    QString linha, comando, datetimeStr, valorStr;
-    QStringList datetimeValor;
-    QDateTime datetime;
-    Dado dado;
-    int valor;
-
-    comando = "get " + cliente + "\r\n";
-
-    if(isAtiva())
-    {
-
-        socket->write(comando.toStdString().c_str());
-        socket->waitForBytesWritten(3000);
-        socket->waitForReadyRead(3000);
-
-        while(socket->bytesAvailable())
-        {
-            linha = socket->readLine().replace("\n","").replace("\r","");
-
-            /* O dado está no formato '2016-05-19T08:21:58 8'. */
-            datetimeValor = linha.split(" ");
-
-            /* Faz o tratamento dos dados e adiciona-o na lista de retorno. */
-            if(datetimeValor.size() == 2)
-            {
-                datetimeStr = datetimeValor.at(0);
-                valorStr = datetimeValor.at(1);
-
-                /* Transforme as strings nos tipos de dados corretos, construa o dado e adicione-o na lista de retorno. */
-                datetime = QDateTime::fromString(datetimeStr, Qt::ISODate);
-                valor = valorStr.toInt();
-                dado.datetime = datetime;
-                dado.valor = valor;
-
-                dados.append(dado);
-            }
-        }
-    }
-    else
-    {
-        throw ErroConexao("Erro na conexão: O servidor parou de responder.");
-    }
-
-    return dados;
-}
-
 QList<Dado> ConexaoPlotter::getUltimos30Dados(QString cliente)
 {
     QList<Dado> dados;
@@ -106,7 +58,7 @@ QList<Dado> ConexaoPlotter::getUltimos30Dados(QString cliente)
 
         socket->write(comando.toStdString().c_str());
         socket->waitForBytesWritten(3000);
-        socket->waitForReadyRead(3000);
+        socket->waitForReadyRead();
 
         /* Primeiro lê todos os dados e trate-os como QString. */
         while(socket->bytesAvailable())
@@ -116,6 +68,11 @@ QList<Dado> ConexaoPlotter::getUltimos30Dados(QString cliente)
         }
 
         /* Obtém os últimos 20 dados. */
+
+        //qDebug() << "Todos os dados at 0 " << todosDadosStr.at(0);
+        //qDebug() << "Todos os dados at size - 1 " << todosDadosStr.at(todosDadosStr.size()-1);
+        //qDebug() << "Todos os dados at size - 30 " << todosDadosStr.at(todosDadosStr.size()-30);
+
         if(todosDadosStr.size() <= 30)
         {
             ultimos30DadosStr = todosDadosStr;
@@ -124,6 +81,8 @@ QList<Dado> ConexaoPlotter::getUltimos30Dados(QString cliente)
         {
             ultimos30DadosStr = todosDadosStr.mid(todosDadosStr.size()-30);
         }
+
+
 
         /* Faz o tratamento desses últimos 20 dados. */
         foreach(QString dadoStr, ultimos30DadosStr)
