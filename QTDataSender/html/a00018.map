@@ -1,3 +1,4 @@
-<map id="conexao.h" name="conexao.h">
-<area shape="rect" id="node7" href="$a00010.html" title="Exceção que é gerada quando este programa não consegue conectar ao servidor. " alt="" coords="462,80,566,107"/>
+<map id="conexao.cpp" name="conexao.cpp">
+<area shape="rect" id="node2" href="$a00008.html" title="Classe responsável pela conexao entre o programa e o servidor remoto. " alt="" coords="223,80,306,107"/>
+<area shape="rect" id="node8" href="$a00011.html" title="Exceção que é gerada quando este programa não consegue conectar ao servidor. " alt="" coords="462,155,566,181"/>
 </map>

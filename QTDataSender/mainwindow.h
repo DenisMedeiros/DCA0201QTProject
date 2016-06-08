@@ -36,7 +36,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    /** UI da janela principal. */
+    /** @brief UI da janela principal. */
     Ui::MainWindow *ui;
 
     /** @brief Timer utilizado para enviar os dados em um período definido. */
@@ -51,22 +51,22 @@ private:
     /** @brief Período de tempo para o envio períodico de dados para o servidor. */
     int intervalo;
 
-    /** Validator para validar a string no formato IP:porta. */
+    /** @brief Validator para validar a string no formato IP:porta. */
     QRegExpValidator *ipPortaValidator;
 
-    /** Validator para validar as faixas de valores como inteiro. */
+    /** @brief Validator para validar as faixas de valores como inteiro. */
     QIntValidator *faixaValidator;
 
-    /** Modelo usado para desenhar na lista de logs. */
+    /** @brief Modelo usado para desenhar na lista de logs. */
     QStringListModel *model;
 
-    /** Conexão utilizada para se comunicar com o servidor. */
+    /** @brief Conexão utilizada para se comunicar com o servidor. */
     ConexaoSender *conexao;
 
-    /** Endereço IP do servidor. */
+    /** @brief Endereço IP do servidor. */
     QString ip;
 
-    /** Porta do servidor. */
+    /** @brief Porta do servidor. */
     quint16 porta;
 
     /**

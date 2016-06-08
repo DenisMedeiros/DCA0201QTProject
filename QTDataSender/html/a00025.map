@@ -1,6 +1,9 @@
-<map id="main.cpp" name="main.cpp">
-<area shape="rect" id="node2" href="$a00014.html" title="Programa produtor de dados para o servidor remoto. " alt="" coords="342,80,447,107"/>
-<area shape="rect" id="node8" href="$a00009.html" title="Classe responsável pela conexao entre o programa e o servidor remoto, com funções mais específicas..." alt="" coords="649,155,770,181"/>
-<area shape="rect" id="node9" href="$a00007.html" title="Classe responsável pela conexao entre o programa e o servidor remoto. " alt="" coords="668,229,751,256"/>
-<area shape="rect" id="node15" href="$a00010.html" title="Exceção que é gerada quando este programa não consegue conectar ao servidor. " alt="" coords="907,304,1011,331"/>
+<map id="erroconexao.h" name="erroconexao.h">
+<area shape="rect" id="node2" href="$a00008.html" title="Classe responsável pela conexao entre o programa e o servidor remoto. " alt="" coords="79,80,161,107"/>
+<area shape="rect" id="node3" href="$a00007.html" title="conexao.cpp" alt="" coords="5,155,101,181"/>
+<area shape="rect" id="node4" href="$a00010.html" title="Classe responsável pela conexao entre o programa e o servidor remoto, com funções mais específicas..." alt="" coords="126,155,247,181"/>
+<area shape="rect" id="node5" href="$a00009.html" title="conexaosender.cpp" alt="" coords="47,229,182,256"/>
+<area shape="rect" id="node6" href="$a00015.html" title="Programa produtor de dados para o servidor remoto. " alt="" coords="206,229,311,256"/>
+<area shape="rect" id="node7" href="$a00012.html" title="Arquivo que contém a função main. " alt="" coords="161,304,236,331"/>
+<area shape="rect" id="node8" href="$a00014.html" title="Programa produtor de dados para o servidor remoto. " alt="" coords="259,304,378,331"/>
 </map>

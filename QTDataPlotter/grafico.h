@@ -25,13 +25,13 @@ class Grafico : public QWidget
     Q_OBJECT
 
 private:
-    /** Lista de dados (datetime e valor) que representam as coordenadas x e y no gráfico. */
+    /** @brief Lista de dados (datetime e valor) que representam as coordenadas x e y no gráfico. */
     QList<Dado> *dados;
 
-    /** Menor valor (y) que o gráfico possui no eixo vertical. */
+    /** @brief Menor valor (y) que o gráfico possui no eixo vertical. */
     int menorY;
 
-    /** Maior valor (y) que o gráfico possui no eixo vertical. */
+    /** @brief Maior valor (y) que o gráfico possui no eixo vertical. */
     int maiorY;
 public:
 

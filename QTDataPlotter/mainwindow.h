@@ -36,32 +36,35 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-     /** UI da janela principal. */
+     /** @brief UI da janela principal. */
     Ui::MainWindow *ui;
 
-    /** Timer responsável por atualizar a lista de dados no gráfico. */
+    /** @brief Timer responsável por atualizar a lista de dados no gráfico. */
     QTimer *timerDados;
 
-    /** Timer responsável por atualizar a lista clientes. */
+    /** @brief Timer responsável por atualizar a lista clientes. */
     QTimer *timerListaClientes;
 
-    /** Lista de clientes conectados ao servidor. */
+    /** @brief Lista de clientes conectados ao servidor. */
     QStringList *clientes;
 
-    /** Cliente atualmente selecionado para plotar seus dados. */
+    /** @brief Cliente atualmente selecionado para plotar seus dados. */
     QString *clienteSelecionado;
 
-    /** Validator para validar a string no formato IP:porta. */
+    /** @brief Validator para validar a string no formato IP:porta. */
     QRegExpValidator *ipPortaValidator;
 
-    /** Modelo usado para desenhar na lista de IPs. */
+    /** @brief Modelo usado para desenhar na lista de IPs. */
     QStringListModel *model;
 
-    /** Conexão utilizada para obter do servidor a lista de clientes. */
+    /** @brief Conexão utilizada para obter do servidor a lista de clientes. */
     ConexaoPlotter *conexaoDados;
 
-    /** Conexão utilizada para obter do servidor os dados de um cliente. */
+    /** @brief Conexão utilizada para obter do servidor os dados de um cliente. */
     ConexaoPlotter *conexaoListaClientes;
+
+    /** @brief Período de tempo para o atualizaçao períodica do gráfico. */
+    int intervalo;
 
 public:
     /**
@@ -92,6 +95,15 @@ public slots:
      * ou inativo.
      */
     void conectar(bool ativado);
+
+    /**
+     * @brief Este slot é responsável por alterar o intervalo de tempo da atualização do gráfico.
+     *
+     * Ele é ativado quando o HorizontalSlider do intervalo tem seu valor mudado e, com isso,
+     * ele para e reinicia o timer o novo valor estabelecido.
+     *
+     */
+    void alterarIntervalo(int _intervalo);
 
     /**
      * @brief Este slot é invocado quando o botão de plot é clicado e inicia a plotagem dos dados.

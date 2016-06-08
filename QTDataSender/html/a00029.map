@@ -1,3 +1,4 @@
-<map id="Conexao" name="Conexao">
-<area shape="rect" id="node3" href="$a00002.html" title="Esta é a classe responsável pela conexão entre o cliente e o servidor remoto e por mais funções espec..." alt="" coords="5,155,120,181"/>
+<map id="mainwindow.h" name="mainwindow.h">
+<area shape="rect" id="node2" href="$a00012.html" title="Arquivo que contém a função main. " alt="" coords="5,80,80,107"/>
+<area shape="rect" id="node3" href="$a00014.html" title="Programa produtor de dados para o servidor remoto. " alt="" coords="103,80,222,107"/>
 </map>

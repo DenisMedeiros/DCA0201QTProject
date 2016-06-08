@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>685</width>
-    <height>350</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,7 +47,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
@@ -87,6 +87,48 @@
            </item>
            <item>
             <widget class="QListView" name="listViewClientes"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="100,0,0">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Intervalo de Atualização</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelValorIntervalo">
+               <property name="text">
+                <string>1</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>seg</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QSlider" name="horizontalSliderIntervalo">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>60</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -261,7 +303,24 @@
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>horizontalSliderIntervalo</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>labelValorIntervalo</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>313</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>conectar()</slot>
   <slot>plot()</slot>

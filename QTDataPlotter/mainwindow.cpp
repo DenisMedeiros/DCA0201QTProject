@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timerListaClientes = new QTimer();
     clientes = new QStringList();
     clienteSelecionado = new QString();
+    intervalo = 0;
 
     model = new QStringListModel(this);
 
@@ -59,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(conexaoDados, SIGNAL(falhaConexao(const QString &)), this, SLOT(falhaConexao(const QString &)));
     connect(conexaoListaClientes, SIGNAL(falhaConexao(const QString &)), this, SLOT(falhaConexao(const QString &)));
+
+    /* Conexão do sinal e slot de quando o intervalo é alterado. */
+    connect(ui->horizontalSliderIntervalo, SIGNAL(valueChanged(int)), this, SLOT(alterarIntervalo(int)));
 
     ui->pushButtonPlot->setEnabled(false);
 
@@ -177,11 +181,23 @@ void MainWindow::conectar(bool ativado)
     }
 }
 
+void MainWindow::alterarIntervalo(int _intervalo)
+{
+    intervalo = _intervalo;
+
+    if(timerDados->isActive())
+    {
+        timerDados->setInterval(intervalo * 1000);
+    }
+}
+
 void MainWindow::plot(void)
 {
 
     QString cliente;
     QModelIndexList indices;
+
+    intervalo = ui->horizontalSliderIntervalo->value();
 
     if(conexaoDados->isAtiva()){
 
@@ -207,7 +223,7 @@ void MainWindow::plot(void)
         ui->statusBar->showMessage("Plotando os dados do cliente " + *clienteSelecionado + ".");
 
         atualizarDados();
-        timerDados->start(1000);
+        timerDados->start(1000 * intervalo);
 
         /* Exibe o gráfico e os labels. */
         ui->grafico->show();

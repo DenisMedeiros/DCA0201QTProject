@@ -115,11 +115,6 @@ QList<Dado> ConexaoPlotter::getUltimos30Dados(QString cliente)
             todosDadosStr.append(linha);
         }
 
-       // qDebug() << "Quantidade de linhas: " << todosDadosStr.size();
-        //qDebug() << "Primeira linha: " << todosDadosStr.first();
-        //qDebug() << "Ultima linha: " << todosDadosStr.last();
-        //qDebug() << "-------------------------------";
-
         /* Obtém os últimos 20 dados. */
         if(todosDadosStr.size() <= 30)
         {
